@@ -34,13 +34,22 @@ git diff --stat
 
 Infer the right tag and title from the diff — do not ask the user to describe it.
 
-### 2. Stage files
+### 2. Group changes by concern
 
-Stage only files relevant to this change. Prefer naming files explicitly over `git add .` to avoid accidentally including env files, generated outputs, etc.
+Before staging, check whether the modified files span more than one unrelated concern (e.g. a bug fix mixed with pre-existing unrelated feature work, or backend logic mixed with unrelated UI polish). Read the actual diffs, not just filenames — two files touched for the same reason belong together even if in different layers (backend + its test), while two changes in the same file for different reasons should be split.
 
-If the user specified which files to include, use exactly those. Otherwise stage all modified tracked files shown in `git status`.
+- If everything traces to one concern, skip grouping — go straight to step 3 with one commit.
+- If a single file mixes hunks from two different concerns, split it with a hand-crafted patch (`git diff <file> > /tmp/x.patch`, edit to keep only the relevant hunk, `git apply --cached /tmp/x.patch`) rather than committing it whole into one group.
+- Don't over-split: group by "what it affects," not by individual file. A fix that touches 5 files for one reason is still one commit.
+- If grouping is ambiguous, ask the user with one question showing the proposed groups rather than guessing.
 
-### 3. Commit — title only
+### 3. Stage files
+
+Stage only files relevant to this change/group. Prefer naming files explicitly over `git add .` to avoid accidentally including env files, generated outputs, etc.
+
+If the user specified which files to include, use exactly those. Otherwise stage all modified tracked files shown in `git status` (per group, if grouped).
+
+### 4. Commit — title only
 
 ```bash
 git commit -m "Tag: Short description"
@@ -55,13 +64,15 @@ Co-Authored-By: ...
 
 **Never** use a multiline message unless the user explicitly asks for detail.
 
-### 4. Push
+Repeat steps 3-4 for each remaining group until `git status` is clean.
+
+### 5. Push
 
 ```bash
 git push
 ```
 
-Report the branch and remote from the push output.
+Report the branch and remote from the push output. If multiple commits were made, list each one.
 
 ---
 
