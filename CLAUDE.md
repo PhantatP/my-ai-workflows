@@ -58,7 +58,7 @@ Use the right model for the task.
 
 ## 6. Orchestrator Owns Execution
 
-For any multi-step task, **invoke the `orchestrator` agent first** — it is the entry point and the single source of truth for:
+For any task expected to require more than 2 steps, or more than 3 files to read — **invoke the `orchestrator` agent first** — it is the entry point and the single source of truth for:
 - the agent roster and what each agent does,
 - coder/tester routing rules,
 - the feature / bug / review-PR workflows (which agents run, in what order, what's parallel, how context is passed).
@@ -66,6 +66,9 @@ For any multi-step task, **invoke the `orchestrator` agent first** — it is the
 That detail lives in `~/.claude/agents/orchestrator.md` and the individual agent files — **not here**, so the two can't drift apart. Don't duplicate the roster or workflow tables in this file.
 
 Principle that governs every flow: **skills govern HOW work is approached (process discipline); agents govern WHO executes it. When a skill applies to a step, invoke the skill BEFORE routing to an agent.**
+
+### Continuation over re-dispatch (cache-cost rule)
+A fresh agent re-pays the full context/cache cost and can't see what the prior phase learned. Same task, next phase (diagnose→implement, plan→execute) → `SendMessage` to the existing agent or `Agent({subagent_type: "fork"})`, not a new orchestrator. Only spawn fresh when the task is genuinely unrelated to anything running.
 
 ## 7. Debugging: Breadcrumb Ledger
 
@@ -76,13 +79,9 @@ During any multi-hypothesis debug session, maintain a running experiment log:
 - All new hypotheses must survive EVERY prior observation, not just the most recent one
 - If a new hypothesis contradicts an earlier breadcrumb, investigate the contradiction — don't discard the breadcrumb
 
-## graphify
-- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
-When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
+## 8. Efficient File Reads
+Don't re-read a file already in context — reference the earlier read instead. For large files, use offset/limit to read only the relevant range.
 
-## Knowledge Graph
-If a `graphify-out/` folder exists in the project root, a knowledge graph has been built for this repo.
-- `graphify-out/graph.json` — file relationships and architecture connections
-- `graphify-out/GRAPH_REPORT.md` — god nodes, surprising connections, suggested questions
-
-Check for it before exploring an unfamiliar codebase. If present, use `/graphify query "<question>"` to traverse it instead of reading files one by one.
+## Knowledge Graph (graphify)
+`/graphify` builds any input into a knowledge graph — invoke the Skill tool (`skill: "graphify"`) when the user types it.
+If `graphify-out/` exists in the project root, a graph already exists: `graph.json` (file relationships) and `GRAPH_REPORT.md` (god nodes, connections, suggested questions). Check for it before exploring an unfamiliar codebase; use `/graphify query "<question>"` instead of reading files one by one.
