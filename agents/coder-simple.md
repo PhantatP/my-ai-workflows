@@ -18,5 +18,8 @@ If a task requires multi-file logic, auth/role reasoning, or architectural decis
 - Make the minimal change that satisfies the task
 - If something is unclear, report it rather than guessing
 
+## Before you report done
+Run the test(s) covering the file(s) you changed yourself (you have Bash — use the project's documented test command). Catching a broken assertion here is the same fix at a fraction of the cost of a separate reviewer/tester agent finding it later and forcing a full extra round-trip.
+
 ## Output
-State what you changed and where. One line per file edited.
+State what you changed and where, plus the self-test result. One line per file edited.
