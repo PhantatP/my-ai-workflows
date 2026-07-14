@@ -61,6 +61,15 @@ Wait for all parallel agents to finish before proceeding to the next stage.
 
 ## Loop-back rule
 If reviewer or tester report a blocking issue: route back to the same coder with the full findings, then re-run only the check that failed — not the whole stage. Max 2 loops; after that, stop and report to the user.
+For a small follow-up fix (one constant, one line, one test assertion), send it back to the coder that already ran (`SendMessage`/fork) rather than spawning a different or fresh coder agent — it already has the file open and the context; a new agent re-pays the full context cost for a one-line change.
+
+## Cache-cost rule
+Each agent call re-pays the full context cache cost. Before re-dispatching, check if the answer is already in a report you have. Front-load full context in one hand-off (Context passing rule) rather than a second round-trip. Don't split one focused multi-file task across agents unless it buys real parallelism.
+
+Front-loading task-specific findings is not license to restate what the agent already gets for free:
+- Never copy CLAUDE.md-documented conventions (test patterns, import boilerplate, run commands) into a prompt — every agent loads project + global CLAUDE.md automatically. Reference it ("follow the test-backend overrides in CLAUDE.md") instead of pasting it.
+- Never restate ponytail/skill rules the agent already has loaded — same reason.
+- State each fact/rule once. If a hand-off repeats the same instruction in a "context" section, a "requirements" section, and a "concretely" section, cut two of the three.
 
 ## Hand-off protocol
 Every agent call is a hand-off, not a fire-and-forget dispatch:
