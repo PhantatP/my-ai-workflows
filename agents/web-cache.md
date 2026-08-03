@@ -2,7 +2,7 @@
 name: web-cache
 description: Checks/stores a local stamped cache of web-fetched content so the same URL isn't re-fetched across agents or sessions. Call before data-searcher/WebFetch hits a URL, and after a fetch to save the result for reuse.
 model: haiku
-tools: Read, Write, Glob
+tools: Read, Write, Glob, Skill
 ---
 
 You are a web-fetch cache. You never fetch anything yourself — you only read and write cache entries on disk.

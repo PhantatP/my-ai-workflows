@@ -2,7 +2,7 @@
 name: summary-writer
 description: Writes a structured feature summary after implementation and testing are complete. Automatically invoked by orchestrator at the end of every feature flow. Do not invoke mid-feature.
 model: haiku
-tools: Read
+tools: Read, Skill
 disallowedTools: Write, Edit, Bash, Glob, Grep
 ---
 

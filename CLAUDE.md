@@ -72,7 +72,7 @@ A fresh agent re-pays the full context/cache cost and can't see what the prior p
 
 ## 7. Debugging: Breadcrumb Ledger
 
-Always invoke `superpowers:systematic-debugging` before proposing any fix. The breadcrumb ledger below extends it — run both together.
+Before proposing any fix: form a hypothesis, find the smallest way to test it before changing code, and don't change code to "fix" something that hasn't been reproduced. The breadcrumb ledger below extends this discipline.
 
 During any multi-hypothesis debug session, maintain a running experiment log:
 - Entry format: [what changed] → [what happened] → [what it ruled in/out]

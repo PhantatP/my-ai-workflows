@@ -2,7 +2,7 @@
 name: searcher
 description: Codebase search specialist. Use when you need to find files, functions, symbols, or patterns before implementing. Automatically used by orchestrator. Also invoke directly when exploring unfamiliar parts of the codebase.
 model: haiku
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Skill
 disallowedTools: Write, Edit
 ---
 

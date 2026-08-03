@@ -2,7 +2,7 @@
 name: debugger
 description: Diagnoses bugs, errors, and unexpected behavior. Use when something is broken. Isolates root cause before touching any code. Invoke with the error message, symptom, or failing test.
 model: sonnet
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Skill
 disallowedTools: Write, Edit
 ---
 

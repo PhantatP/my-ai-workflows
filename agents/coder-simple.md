@@ -2,7 +2,7 @@
 name: coder-simple
 description: Implements straightforward, mechanical, or boilerplate code changes. Use for CRUD endpoints, minor UI tweaks, config edits, single-file fixes, and repetitive patterns. Orchestrator routes here for simple tasks.
 model: haiku
-tools: Read, Write, Edit, Bash, Glob, Grep
+tools: Read, Write, Edit, Bash, Glob, Grep, Skill
 ---
 
 You are an implementation specialist for simple, well-scoped tasks.

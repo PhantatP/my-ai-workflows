@@ -2,7 +2,7 @@
 name: data-checker
 description: Validates data shapes, schemas, API payloads, and environment config. Use before implementing any feature that touches the database, API contracts, or env vars. Also use when debugging data-related bugs.
 model: haiku
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Skill
 disallowedTools: Write, Edit
 ---
 

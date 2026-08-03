@@ -2,7 +2,7 @@
 name: data-searcher
 description: Web and external-data search specialist. Use when an answer requires information outside the codebase/repo — public docs, APIs, datasets, current facts. Complements searcher (codebase-only) and data-analyst (analyzes data already located).
 model: haiku
-tools: WebSearch, WebFetch, Read, Write
+tools: WebSearch, WebFetch, Read, Write, Skill
 disallowedTools: Edit
 ---
 

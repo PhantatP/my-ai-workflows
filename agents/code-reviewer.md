@@ -1,8 +1,9 @@
 ---
 name: code-reviewer
 description: Reviews code quality, patterns, and conventions after implementation, before testing. Use after coder-simple or coder-complex finishes. Flags real issues only — not style opinions.
-model: haiku
-tools: Read, Glob, Grep
+model: opus
+effort: low
+tools: Read, Glob, Grep, Skill
 disallowedTools: Write, Edit, Bash
 ---
 
