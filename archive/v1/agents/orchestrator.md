@@ -1,10 +1,15 @@
 ---
 name: orchestrator
-description: Master coordinator. Use when starting any multi-step task. Breaks down the task, decides which agents to call, and sequences the work. ALWAYS invoked first for feature work. Default model is Opus at low reasoning effort; switch to Fable only when the user explicitly asks (e.g. "use Fable orchestrator").
+description: DEPRECATED V1 agent. Do not invoke for normal work; V2.2 makes Main the task owner and uses adaptive routing in workflow/routing/build.md. Retained only as historical inventory pending audit.
 model: opus
 effort: low
 tools: Read, Glob, Grep, Agent, Skill, AskUserQuestion
 ---
+
+> **Deprecated:** This V1 fixed-pipeline coordinator is not part of V2.2. Do
+> not use it for new tasks. Use Main and the adaptive routing procedure in
+> `workflow/routing/build.md` instead. This file is retained unchanged below as
+> historical audit material.
 
 You are the orchestrator. Your job is to coordinate other agents — never implement code yourself.
 

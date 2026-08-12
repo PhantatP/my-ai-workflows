@@ -1,87 +1,54 @@
-# Global Rules
+# My AI Workflows — Claude Code adapter
 
-## 1. Think Before Coding
-Don't assume. Don't hide confusion. Surface tradeoffs.
+This repository implements My AI Workflows V2.2. The shared workflow policy is
+platform-neutral and lives in [`workflow/`](workflow/README.md). This file is
+only the Claude Code entry point.
 
-Before implementing:
-- State assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them — don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
-- No "✅" emoji in code or responses — hard to see in dark theme.
+## Required reading order for BUILD work
 
-## 2. Simplicity First
-Minimum code that solves the problem. Nothing speculative.
+1. [`workflow/principles.md`](workflow/principles.md)
+2. [`workflow/routing/build.md`](workflow/routing/build.md)
+3. [`workflow/routing/triggers.yaml`](workflow/routing/triggers.yaml)
+4. [`workflow/telemetry/schema.yaml`](workflow/telemetry/schema.yaml) when a
+   routing, escalation, de-escalation, disproof, review, or verification event
+   must be recorded.
+5. [`workflow/agents/roles.md`](workflow/agents/roles.md) before delegating.
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
-- Ask: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+## Main owns the task
 
-## 3. Surgical Changes
-Touch only what you must. Clean up only your own mess.
+The current agent is Main: it owns assessment, strategy, execution,
+integration, and user communication. Do not invoke the legacy `orchestrator`
+agent as a mandatory entry point. Planning and testing are phases; debugging is
+a methodology. Create a separate worker only when independent context or
+judgment materially improves the outcome.
 
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it — don't delete it.
+For BUILD tasks, follow the shared routing pipeline: inspect, scan mechanical
+triggers, assess complexity and judgment risk, run the counterargument
+checkpoint before Levels 0–2, execute, re-evaluate on new evidence, verify, and
+record required audit events. Mechanical floors cannot be reduced by narrative.
 
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
-- Every changed line should trace directly to the user's request.
+## Claude-specific execution
 
-## 4. Goal-Driven Execution
-Define success criteria. Loop until verified.
+- Use subagents only at Level 3+ when independent verification is required, or
+  at Level 4 when work is genuinely separable.
+- The active Claude Code definitions are in `.claude/agents/`; their model and
+  allowed-tool frontmatter enforce the Explorer, Implementer, and Reviewer
+  boundaries. Do not replace these with the archived V1 definitions.
+- Pass an independent reviewer the task intent, changed-file list/diff, relevant
+  evidence, and the instruction to falsify correctness. The reviewer must not
+  edit the implementation.
+- `archive/v1/` contains legacy Claude Code inventory for audit only. It is not
+  part of normal routing and does not create mandatory workflow stages.
+- Active reusable methodologies are in `skills/`. Load one only when it is
+  relevant to the selected workflow level and task; they are not fixed stages.
+- Store a telemetry record under `.workflow/telemetry/` only when that project
+  has elected to persist records. Otherwise include the schema fields in the
+  final task report.
 
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
+## Core coding constraints
 
-For multi-step tasks, state a brief plan:
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-
-## 5. Model Selection
-Use the right model for the task.
-
-- **Opus** — orchestrator and planner roles only, and only by default for those two. Any other role: Opus only when the user explicitly asks. Never for implementation.
-- **Sonnet** — default for implementation, editing, debugging, responses, orchestration, and planning.
-- **Haiku** — lightweight subagent work.
-
-(Per-agent model assignments live in each agent's frontmatter under `~/.claude/agents/` — don't restate them here.)
-
-## 6. Orchestrator Owns Execution
-
-For any task expected to require more than 2 steps, or more than 3 files to read — **invoke the `orchestrator` agent first** — it is the entry point and the single source of truth for:
-- the agent roster and what each agent does,
-- coder/tester routing rules,
-- the feature / bug / review-PR workflows (which agents run, in what order, what's parallel, how context is passed).
-
-That detail lives in `~/.claude/agents/orchestrator.md` and the individual agent files — **not here**, so the two can't drift apart. Don't duplicate the roster or workflow tables in this file.
-
-Principle that governs every flow: **skills govern HOW work is approached (process discipline); agents govern WHO executes it. When a skill applies to a step, invoke the skill BEFORE routing to an agent.**
-
-### Continuation over re-dispatch (cache-cost rule)
-A fresh agent re-pays the full context/cache cost and can't see what the prior phase learned. Same task, next phase (diagnose→implement, plan→execute) → `SendMessage` to the existing agent or `Agent({subagent_type: "fork"})`, not a new orchestrator. Only spawn fresh when the task is genuinely unrelated to anything running.
-
-## 7. Debugging: Breadcrumb Ledger
-
-Before proposing any fix: form a hypothesis, find the smallest way to test it before changing code, and don't change code to "fix" something that hasn't been reproduced. The breadcrumb ledger below extends this discipline.
-
-During any multi-hypothesis debug session, maintain a running experiment log:
-- Entry format: [what changed] → [what happened] → [what it ruled in/out]
-- All new hypotheses must survive EVERY prior observation, not just the most recent one
-- If a new hypothesis contradicts an earlier breadcrumb, investigate the contradiction — don't discard the breadcrumb
-
-## 8. Efficient File Reads
-Don't re-read a file already in context — reference the earlier read instead. For large files, use offset/limit to read only the relevant range.
-
-## Knowledge Graph (graphify)
-`/graphify` builds any input into a knowledge graph — invoke the Skill tool (`skill: "graphify"`) when the user types it.
-If `graphify-out/` exists in the project root, a graph already exists: `graph.json` (file relationships) and `GRAPH_REPORT.md` (god nodes, connections, suggested questions). Check for it before exploring an unfamiliar codebase; use `/graphify query "<question>"` instead of reading files one by one.
+- Understand the relevant execution path before modifying it.
+- For bugs, reproduce and establish a root-cause hypothesis before patching.
+- Keep scope surgical and verify every requested behavior with proportionate
+  evidence.
+- Do not treat a test run as proof beyond what it actually exercised.

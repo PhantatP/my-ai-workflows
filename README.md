@@ -1,12 +1,22 @@
-# my-ai-workflows
+# My AI Workflows
 
-Custom [Claude Code](https://claude.com/claude-code) configuration: subagents, skills, and global instructions.
+Portable workflow configuration for [Claude Code](https://claude.com/claude-code)
+and Codex. V2.2 implements the smallest BUILD core first: evidence-gated
+mechanical guardrails, adaptive routing, counterargument, runtime escalation,
+and auditable telemetry.
 
 ## Contents
 
-- `CLAUDE.md` — global instructions Claude Code loads in every project (model routing rules, coding philosophy, orchestrator entry point).
-- `agents/` — custom subagent definitions (orchestrator, planners, coders, testers, reviewers, debuggers, data agents).
-- `skills/` — custom skills invoked via `/skill-name` or auto-triggered by task context.
+- `workflow/` — platform-neutral V2.2 principles, BUILD routing, trigger policy,
+  telemetry contract, roles, and skill audit.
+- `CLAUDE.md` — thin Claude Code adapter for the shared policy.
+- `AGENTS.md` — thin Codex adapter for the shared policy.
+- `skills/` — active V2.2 methodologies: BUILD routing, testing, and
+  independent falsification review.
+- `archive/v1/` — remaining V1 inventory, clearly separate from the active
+  workflow and pending audit.
+
+See [`workflow/README.md`](workflow/README.md) for adoption and current scope.
 
 ## Credits
 

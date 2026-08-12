@@ -1,0 +1,52 @@
+# Deterministic BUILD trigger policy. Match only files in the actual change set
+# or tool output from the current task, not files merely observed during search.
+version: 1
+default_floor: 0
+
+triggers:
+  - id: authentication_or_authorization
+    detect: path_match
+    patterns: ["**/auth/**", "**/authorization/**", "**/*auth*"]
+    minimum_level: 3
+    rationale: sensitive_access_control_change
+
+  - id: secrets_or_security_configuration
+    detect: path_match
+    patterns: ["**/.env*", "**/*secret*", "**/*credential*", "**/*security*"]
+    minimum_level: 3
+    rationale: sensitive_configuration_change
+
+  - id: database_migration_or_schema
+    detect: path_match
+    patterns: ["**/migrations/**", "**/migration/**", "**/*schema*"]
+    minimum_level: 3
+    rationale: persistence_contract_change
+
+  - id: dependency_or_lockfile
+    detect: path_match
+    patterns: ["**/package.json", "**/package-lock.json", "**/pnpm-lock.yaml", "**/yarn.lock", "**/pyproject.toml", "**/poetry.lock", "**/requirements*.txt", "**/Cargo.toml", "**/Cargo.lock", "**/go.mod", "**/go.sum"]
+    minimum_level: 3
+    rationale: supply_chain_or_runtime_change
+
+  - id: production_deployment_or_infrastructure
+    detect: path_match
+    patterns: ["**/infra/**", "**/infrastructure/**", "**/terraform/**", "**/*.tf", "**/k8s/**", "**/helm/**", "**/deploy/**", "**/deployment/**", "**/*production*"]
+    minimum_level: 3
+    rationale: production_resource_change
+
+  - id: public_api_or_protocol
+    detect: path_match
+    patterns: ["**/openapi*", "**/swagger*", "**/*.proto", "**/*api*schema*"]
+    minimum_level: 3
+    rationale: public_interface_change
+
+  - id: destructive_operation
+    detect: command_or_tool_result
+    patterns: ["database drop", "database reset", "migration destructive", "infrastructure apply", "deployment", "secret manipulation", "irreversible filesystem operation"]
+    minimum_level: 3
+    rationale: destructive_or_external_state_operation
+
+# Non-mechanical risks must never be added here merely because they matter:
+# test-oracle quality, hidden dependencies, compatibility ambiguity,
+# concurrency, state coupling, rollback uncertainty, and architecture coupling
+# belong to Main's explicit judgment assessment.
