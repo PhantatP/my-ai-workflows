@@ -1,6 +1,6 @@
 # My AI Workflows — Claude Code adapter
 
-This repository implements My AI Workflows V2.2. The shared workflow policy is
+This repository implements My AI Workflows V2.2.1. The shared workflow policy is
 platform-neutral and lives in [`workflow/`](workflow/README.md). This file is
 only the Claude Code entry point.
 
@@ -9,10 +9,7 @@ only the Claude Code entry point.
 1. [`workflow/principles.md`](workflow/principles.md)
 2. [`workflow/routing/build.md`](workflow/routing/build.md)
 3. [`workflow/routing/triggers.yaml`](workflow/routing/triggers.yaml)
-4. [`workflow/telemetry/schema.yaml`](workflow/telemetry/schema.yaml) when a
-   routing, escalation, de-escalation, disproof, review, or verification event
-   must be recorded.
-5. [`workflow/agents/roles.md`](workflow/agents/roles.md) before delegating.
+4. [`workflow/agents/roles.md`](workflow/agents/roles.md) before delegating.
 
 ## Main owns the task
 
@@ -41,9 +38,10 @@ record required audit events. Mechanical floors cannot be reduced by narrative.
   part of normal routing and does not create mandatory workflow stages.
 - Active reusable methodologies are in `skills/`. Load one only when it is
   relevant to the selected workflow level and task; they are not fixed stages.
-- Store a telemetry record under `.workflow/telemetry/` only when that project
-  has elected to persist records. Otherwise include the schema fields in the
-  final task report.
+- Scan intended and actual changed paths using `workflow/bin/scan-triggers`.
+  Call `workflow/bin/enforce-operation` before external sensitive commands;
+  a denial is fail-closed. The mechanism writes append-only events to
+  `.workflow/log.txt`.
 
 ## Core coding constraints
 

@@ -1,6 +1,6 @@
 # My AI Workflows — Codex adapter
 
-This repository implements My AI Workflows V2.2. The platform-neutral policy
+This repository implements My AI Workflows V2.2.1. The platform-neutral policy
 lives in [`workflow/`](workflow/README.md); this is the Codex entry point.
 
 ## Required reading order for BUILD work
@@ -8,9 +8,7 @@ lives in [`workflow/`](workflow/README.md); this is the Codex entry point.
 1. [`workflow/principles.md`](workflow/principles.md)
 2. [`workflow/routing/build.md`](workflow/routing/build.md)
 3. [`workflow/routing/triggers.yaml`](workflow/routing/triggers.yaml)
-4. [`workflow/telemetry/schema.yaml`](workflow/telemetry/schema.yaml) when an
-   auditable event occurs.
-5. [`workflow/agents/roles.md`](workflow/agents/roles.md) before delegating.
+4. [`workflow/agents/roles.md`](workflow/agents/roles.md) before delegating.
 
 ## Main owns the task
 
@@ -36,8 +34,10 @@ floor without an inspectable trigger-disproof event.
   questions.
 - `archive/v1/` contains Claude Code V1 inventory, retained for audit. It is
   not Codex configuration and does not create mandatory workflow stages.
-- Persist telemetry to `.workflow/telemetry/` only if the target project has
-  opted in. Otherwise report the schema fields in the final response.
+- Use `workflow/bin/scan-triggers` for intended paths and actual changed paths.
+  Use `workflow/bin/enforce-operation` before external sensitive commands;
+  its deny decision is fail-closed. Report enforcement evidence in the final
+  response; `.workflow/log.txt` is the minimal local operational log.
 
 ## Core coding constraints
 

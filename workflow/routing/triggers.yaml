@@ -1,52 +1,76 @@
-# Deterministic BUILD trigger policy. Match only files in the actual change set
-# or tool output from the current task, not files merely observed during search.
-version: 1
-default_floor: 0
-
-triggers:
-  - id: authentication_or_authorization
-    detect: path_match
-    patterns: ["**/auth/**", "**/authorization/**", "**/*auth*"]
-    minimum_level: 3
-    rationale: sensitive_access_control_change
-
-  - id: secrets_or_security_configuration
-    detect: path_match
-    patterns: ["**/.env*", "**/*secret*", "**/*credential*", "**/*security*"]
-    minimum_level: 3
-    rationale: sensitive_configuration_change
-
-  - id: database_migration_or_schema
-    detect: path_match
-    patterns: ["**/migrations/**", "**/migration/**", "**/*schema*"]
-    minimum_level: 3
-    rationale: persistence_contract_change
-
-  - id: dependency_or_lockfile
-    detect: path_match
-    patterns: ["**/package.json", "**/package-lock.json", "**/pnpm-lock.yaml", "**/yarn.lock", "**/pyproject.toml", "**/poetry.lock", "**/requirements*.txt", "**/Cargo.toml", "**/Cargo.lock", "**/go.mod", "**/go.sum"]
-    minimum_level: 3
-    rationale: supply_chain_or_runtime_change
-
-  - id: production_deployment_or_infrastructure
-    detect: path_match
-    patterns: ["**/infra/**", "**/infrastructure/**", "**/terraform/**", "**/*.tf", "**/k8s/**", "**/helm/**", "**/deploy/**", "**/deployment/**", "**/*production*"]
-    minimum_level: 3
-    rationale: production_resource_change
-
-  - id: public_api_or_protocol
-    detect: path_match
-    patterns: ["**/openapi*", "**/swagger*", "**/*.proto", "**/*api*schema*"]
-    minimum_level: 3
-    rationale: public_interface_change
-
-  - id: destructive_operation
-    detect: command_or_tool_result
-    patterns: ["database drop", "database reset", "migration destructive", "infrastructure apply", "deployment", "secret manipulation", "irreversible filesystem operation"]
-    minimum_level: 3
-    rationale: destructive_or_external_state_operation
-
-# Non-mechanical risks must never be added here merely because they matter:
-# test-oracle quality, hidden dependencies, compatibility ambiguity,
-# concurrency, state coupling, rollback uncertainty, and architecture coupling
-# belong to Main's explicit judgment assessment.
+{
+  "version": 2,
+  "default_floor": 0,
+  "triggers": [
+    {
+      "id": "authentication_sensitive",
+      "source": "path",
+      "patterns": ["**/auth/**", "**/auth.*", "**/authentication/**", "**/authentication.*", "**/authorization/**", "**/authorization.*", "**/permissions/**", "**/permissions.*", "**/rbac/**", "**/rbac.*", "**/guards/**", "**/guards.*", "**/session/**", "**/session.*", "**/sessions/**", "**/sessions.*", "**/jwt/**", "**/jwt.*", "**/oauth/**", "**/oauth.*", "**/passport/**", "**/passport.*"],
+      "minimum_level": 3,
+      "rationale": "sensitive_access_control_change"
+    },
+    {
+      "id": "secrets_or_security_configuration",
+      "source": "path",
+      "patterns": ["**/.env*", "**/secrets/**", "**/secrets.*", "**/credentials/**", "**/credentials.*", "**/security/**", "**/security.*"],
+      "minimum_level": 3,
+      "rationale": "sensitive_configuration_change"
+    },
+    {
+      "id": "database_migration",
+      "source": "path",
+      "patterns": ["**/migrations/**", "**/migration/**", "**/alembic/versions/**", "**/supabase/migrations/**"],
+      "minimum_level": 3,
+      "rationale": "persistence_contract_change"
+    },
+    {
+      "id": "database_schema",
+      "source": "path",
+      "patterns": ["**/prisma/schema.prisma", "**/db/schema.*", "**/db/**/schema.*"],
+      "minimum_level": 3,
+      "rationale": "persistence_contract_change"
+    },
+    {
+      "id": "dependency_or_lockfile",
+      "source": "path",
+      "patterns": ["**/package.json", "**/package-lock.json", "**/pnpm-lock.yaml", "**/yarn.lock", "**/pyproject.toml", "**/poetry.lock", "**/requirements*.txt", "**/Cargo.toml", "**/Cargo.lock", "**/go.mod", "**/go.sum"],
+      "minimum_level": 3,
+      "rationale": "supply_chain_or_runtime_change"
+    },
+    {
+      "id": "production_or_infrastructure",
+      "source": "path",
+      "patterns": ["**/infra/**", "**/infrastructure/**", "**/terraform/**", "**/*.tf", "**/k8s/**", "**/helm/**", "**/deploy/**", "**/deployment/**", "**/production/**", "**/production.*", "**/*.production.*"],
+      "minimum_level": 3,
+      "rationale": "production_resource_change"
+    },
+    {
+      "id": "public_api_or_protocol",
+      "source": "path",
+      "patterns": ["**/openapi/**", "**/openapi.*", "**/swagger/**", "**/swagger.*", "**/*.proto", "**/graphql/schema.*", "**/api-contracts/**"],
+      "minimum_level": 3,
+      "rationale": "public_interface_change"
+    },
+    {
+      "id": "destructive_operation",
+      "source": "command",
+      "signatures": ["rm_recursive_force", "git_push_force", "terraform_destroy", "kubectl_delete", "sql_drop_table", "sql_truncate_table"],
+      "minimum_level": 3,
+      "rationale": "destructive_or_external_state_operation"
+    },
+    {
+      "id": "shell_evaluated_command",
+      "source": "command",
+      "signatures": ["shell_evaluated_command"],
+      "minimum_level": 3,
+      "rationale": "cannot_deterministically_inspect_shell_evaluation"
+    },
+    {
+      "id": "production_sensitive_operation",
+      "source": "command",
+      "signatures": ["terraform_apply", "kubectl_apply", "helm_upgrade"],
+      "minimum_level": 3,
+      "rationale": "production_sensitive_operation"
+    }
+  ]
+}

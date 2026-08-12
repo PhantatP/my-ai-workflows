@@ -70,12 +70,14 @@ Complexity-driven reduction requires all of:
 
 1. inspectable evidence supporting the reduction;
 2. a fresh counterargument checkpoint;
-3. a `deescalation_events` record.
+3. an append-only `.workflow/log.txt` entry stating the evidence reference and
+   counterargument.
 
-It cannot lower the mechanical floor. To remove a mechanical floor, record a
-`trigger_disproof_events` entry that includes the trigger, detector, evidence
-reference, evidence summary, and `disproved: true`. An explanation alone is
-never sufficient.
+It cannot lower the mechanical floor. To remove a mechanical floor, append a
+trigger-disproof entry to `.workflow/log.txt` that includes the trigger,
+detector, evidence reference, evidence summary, and `disproved: true`. An
+explanation alone is never sufficient. The deferred structured telemetry schema
+is not runtime policy.
 
 ## 6. Verify and report
 
@@ -83,4 +85,3 @@ Perform proportionate verification: tests, builds, types, static analysis,
 runtime checks, diff inspection, and regression checks as applicable. At Level
 3+, independent review attempts to find a concrete failure, missing assumption,
 or compatibility issue. Record the evidence and any remaining uncertainty.
-

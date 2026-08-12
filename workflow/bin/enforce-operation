@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+"""Pre-action guard for command and production-sensitive operations.
+
+It returns a decision; a platform adapter must call it before executing an
+external operation. Scanner errors deny the operation, rather than lowering
+the floor.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from workflow.enforcement.core import append_log  # noqa: E402
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--command", required=True)
+parser.add_argument("--scanner", default=str(Path(__file__).with_name("scan-triggers")))
+parser.add_argument("--log-root", type=Path, default=Path.cwd())
+args = parser.parse_args()
+
+try:
+    completed = subprocess.run([sys.executable, args.scanner, "--command", args.command], capture_output=True, text=True, check=False)
+    if completed.returncode != 0:
+        raise RuntimeError(completed.stderr.strip() or "scanner failed")
+    result = json.loads(completed.stdout)
+    if (not isinstance(result.get("triggers"), list)
+            or not isinstance(result.get("mechanical_floor"), int)
+            or not all(isinstance(item, dict) and isinstance(item.get("id"), str) for item in result["triggers"])):
+        raise ValueError("malformed scanner result")
+except Exception as error:
+    append_log(args.log_root, "L?", f"DENIED: scanner failure ({error})")
+    print(json.dumps({"decision": "deny", "reason": "scanner_failure"}))
+    raise SystemExit(3)
+
+sensitive = [item for item in result["triggers"] if item["id"] in {"destructive_operation", "production_sensitive_operation", "shell_evaluated_command"}]
+if not sensitive:
+    print(json.dumps({"decision": "allow", "mechanical_floor": result["mechanical_floor"]}))
+    raise SystemExit(0)
+
+reason = ", ".join(item["id"] for item in sensitive)
+append_log(args.log_root, f"L{result['mechanical_floor']}", f"DENIED: {reason} ({args.command})")
+print(json.dumps({"decision": "deny", "reason": reason, "mechanical_floor": result["mechanical_floor"]}))
+raise SystemExit(2)

@@ -1,14 +1,14 @@
 # My AI Workflows
 
 Portable workflow configuration for [Claude Code](https://claude.com/claude-code)
-and Codex. V2.2 implements the smallest BUILD core first: evidence-gated
-mechanical guardrails, adaptive routing, counterargument, runtime escalation,
-and auditable telemetry.
+and Codex. V2.2.1 adds deterministic BUILD enforcement: executable trigger
+scanning, fail-closed sensitive-command guarding, and a small human-readable
+operational log.
 
 ## Contents
 
-- `workflow/` — platform-neutral V2.2 principles, BUILD routing, trigger policy,
-  telemetry contract, roles, and skill audit.
+- `workflow/` — platform-neutral policy, executable trigger scanner, enforcement
+  adapters, minimal logging guidance, roles, and skill audit.
 - `CLAUDE.md` — thin Claude Code adapter for the shared policy.
 - `AGENTS.md` — thin Codex adapter for the shared policy.
 - `skills/` — active V2.2 methodologies: BUILD routing, testing, and

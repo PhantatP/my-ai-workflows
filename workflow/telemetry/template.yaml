@@ -1,3 +1,5 @@
+# Deferred V2.2 telemetry template. It is retained for future design work and
+# must not be used by the V2.2.1 runtime workflow.
 mode: BUILD
 initial_level: 0
 final_level: 0
@@ -25,4 +27,3 @@ counterargument:
   escalation_evidence: ""
 review_findings: []
 remaining_uncertainty: []
-

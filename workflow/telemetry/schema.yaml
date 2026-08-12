@@ -1,4 +1,5 @@
-# A task record has deterministic facts plus explicitly semantic interpretation.
+# Deferred V2.2 telemetry design. It is not part of the V2.2.1 runtime workflow;
+# current enforcement uses `.workflow/log.txt` for human inspection.
 version: 1
 record:
   mode: BUILD                         # deterministic
@@ -42,4 +43,3 @@ event_contracts:
     required: [from_level, to_level, reason, evidence_ref]
   deescalation:
     required: [from_level, to_level, reason, evidence_ref, counterargument, mechanical_floor_changed]
-
