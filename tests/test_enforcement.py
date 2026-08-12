@@ -10,6 +10,7 @@ from workflow.enforcement.core import scan
 ROOT = Path(__file__).resolve().parents[1]
 ENFORCER = ROOT / "workflow" / "bin" / "enforce-operation"
 CHANGE_SET_SCANNER = ROOT / "workflow" / "bin" / "scan-change-set"
+CLAUDE_HOOK = ROOT / ".claude" / "hooks" / "pre_tool_use.py"
 
 @pytest.mark.parametrize("path", ["authors.md", "src/author.ts", "src/useAuthorList.tsx", "AUTHORS"])
 def test_author_paths_do_not_match_authentication(path):
@@ -46,13 +47,26 @@ def test_documentation_prefix_cannot_hide_an_executable_command(command):
 def test_destructive_command_segments_and_variants_are_detected(command):
     assert "destructive_operation" in {item["id"] for item in scan(command=command)["triggers"]}
 
-@pytest.mark.parametrize("command", ["echo safe\nterraform destroy", "echo $(terraform destroy)", "echo `terraform destroy`", "echo <(terraform destroy)", "sh -c 'terraform destroy'", "eval 'terraform destroy'", "env FOO=1 terraform destroy"])
+@pytest.mark.parametrize("command", ["echo $(terraform destroy)", "echo `terraform destroy`", "echo <(terraform destroy)", "sh -c 'terraform destroy'", "bash -c 'terraform destroy'", "eval 'terraform destroy'"])
 def test_shell_evaluated_commands_are_conservatively_sensitive(command):
     assert "shell_evaluated_command" in {item["id"] for item in scan(command=command)["triggers"]}
+
+@pytest.mark.parametrize("command", ["echo hello\npytest", "FOO=test pytest", "env FOO=test pytest", "bash script.sh"])
+def test_ordinary_shell_forms_are_not_automatically_sensitive(command):
+    assert scan(command=command)["mechanical_floor"] == 0
 
 @pytest.mark.parametrize("command", ["command terraform destroy", "nice terraform destroy"])
 def test_command_modifiers_do_not_hide_destructive_operations(command):
     assert "destructive_operation" in {item["id"] for item in scan(command=command)["triggers"]}
+
+@pytest.mark.parametrize("command", ["sudo terraform destroy", "sudo -u root terraform destroy", "sudo --user root git push --force origin main", "timeout 5 terraform destroy", "timeout -k 1 5 terraform destroy", "timeout -s KILL 5 terraform destroy", "command -p terraform destroy", "env -i terraform destroy", "env -u PATH terraform destroy", "env -C /tmp terraform destroy", "FOO=test terraform destroy"])
+def test_safe_wrappers_do_not_hide_destructive_operations(command):
+    assert "destructive_operation" in {item["id"] for item in scan(command=command)["triggers"]}
+
+@pytest.mark.parametrize("command", ["echo hello\npytest", "FOO=test pytest", "env FOO=test pytest", "bash script.sh"])
+def test_guard_allows_ordinary_shell_forms(tmp_path, command):
+    result = subprocess.run([sys.executable, ENFORCER, "--command", command, "--log-root", tmp_path], capture_output=True, text=True)
+    assert result.returncode == 0
 
 @pytest.mark.parametrize("path", [".env", ".env.production"])
 def test_root_dotenv_paths_match(path):
@@ -102,6 +116,20 @@ def test_sensitive_enforcement_fails_closed_on_scanner_error(tmp_path, scanner_b
 def test_shared_guard_cannot_self_approve_a_destructive_command(tmp_path):
     result = subprocess.run([sys.executable, ENFORCER, "--command", "git push -f origin main", "--log-root", tmp_path], capture_output=True, text=True)
     assert json.loads(result.stdout)["decision"] == "deny"
+
+def test_claude_hook_denies_and_logs_malformed_payload():
+    result = subprocess.run([sys.executable, CLAUDE_HOOK], input="not json", capture_output=True, text=True)
+    assert result.returncode == 2
+    assert "malformed hook payload" in (ROOT / ".workflow" / "log.txt").read_text(encoding="utf-8")
+
+@pytest.mark.parametrize("payload", ['{"tool_name":"Bash","tool_input":"not-an-object"}', '{"tool_name":"Bash","tool_input":{"command":3}}'])
+def test_claude_hook_denies_malformed_bash_shapes(payload):
+    result = subprocess.run([sys.executable, CLAUDE_HOOK], input=payload, capture_output=True, text=True)
+    assert result.returncode == 2
+
+@pytest.mark.parametrize("command", ["printf '%s' 'x; terraform destroy'", "printf '%s' 'x|terraform destroy'"])
+def test_quoted_list_separators_do_not_create_false_commands(command):
+    assert scan(command=command)["mechanical_floor"] == 0
 
 @pytest.mark.parametrize("command", ["echo `terraform destroy`", "eval 'terraform destroy'", "command terraform destroy"])
 def test_guard_denies_shell_forms_that_would_execute_sensitive_commands(tmp_path, command):

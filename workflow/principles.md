@@ -17,7 +17,6 @@
    reusable methodology. A phase does not automatically require an agent.
 10. Verification is part of implementation. Independent review is an attempt
     to falsify correctness, not a request for approval.
-11. Facts in telemetry are mechanical; reasons, risks, findings, and remaining
-    uncertainty are explicitly semantic.
+11. Mechanical events are appended to the human-readable operational log;
+    reasons, risks, findings, and remaining uncertainty are explicitly semantic.
 12. BUILD is the current operational core. RESEARCH and LEARN are experimental.
-

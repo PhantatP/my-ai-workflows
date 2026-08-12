@@ -1,0 +1,31 @@
+# Deferred V2.2 telemetry design. It is not part of the V2.2.1 runtime workflow;
+# current enforcement uses `.workflow/log.txt` for human inspection.
+version: 1
+record:
+  mode: BUILD
+  initial_level: 0
+  final_level: 0
+  mechanical_floor: 0
+  escalated: false
+  mechanical_triggers: []
+  trigger_events: []
+  trigger_disproof_events: []
+  escalation_events: []
+  deescalation_events: []
+  independent_review_required: false
+  independent_review_completed: false
+  agents_spawned: []
+  skills_loaded: []
+  verification:
+    tests_run: false
+    commands: []
+    evidence_refs: []
+  files_changed: []
+  classification_reason: ""
+  complexity_assessment: ""
+  judgment_risks: []
+  counterargument:
+    possible_miss: ""
+    escalation_evidence: ""
+  review_findings: []
+  remaining_uncertainty: []

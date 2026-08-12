@@ -30,6 +30,7 @@ blocks (exit 2) on denial, so a proposed destructive or production-sensitive
 command cannot execute merely because the model decides to continue. For
 Write/Edit/MultiEdit it calls `scan-triggers --intended-path` on the target
 file; this is advisory logging that raises the mechanical floor for routing,
-not a block, since path triggers are judgment risk rather than destructive
-operations. The shared scanner remains the sole trigger implementation; the
-hook only wires it in.
+not a block, since path triggers are not destructive operations. A malformed
+hook payload is denied and logged; a path-scanner failure is logged as degraded
+mode but does not block an ordinary edit. The shared scanner remains the sole
+trigger implementation; the hook only wires it in.

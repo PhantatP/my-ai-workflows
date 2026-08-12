@@ -31,6 +31,7 @@ workflow/
 │   └── triggers.yaml      # deterministic, inspectable trigger policy
 ├── agents/
 │   └── roles.md           # V2.2 active role contracts and independence rules
+├── future/                # deferred designs, not runtime workflow
 └── skills.md              # V1 audit inventory and lifecycle rules
 ```
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 import fnmatch
 import json
 import re
+import shlex
 from datetime import date
 from pathlib import Path
 from typing import Iterable
@@ -39,9 +40,9 @@ def path_matches(pattern: str, value: str) -> bool:
 
 
 COMMAND_SIGNATURES = {
-    # Shell evaluation hides the executable command from a shallow scanner.
-    # Class it as sensitive so the pre-action guard denies rather than guesses.
-    "shell_evaluated_command": re.compile(r"\n|\$\(|`|<\(|^\s*(?:eval|sh|bash|zsh|powershell|pwsh)\b|^\s*(?:env\s+(?:[A-Za-z_]\w*=\S+\s+)+|(?:[A-Za-z_]\w*=\S+\s+)+)", re.I),
+    # Nested evaluation hides executable commands. A newline, an ordinary
+    # interpreter invocation, and environment assignment are scanned normally.
+    "shell_evaluated_command": re.compile(r"\$\(|`|<\(|^\s*eval\b|^\s*(?:sh|bash|zsh|powershell|pwsh)\s+[^\n]*-[A-Za-z]*c\b", re.I),
     "rm_recursive_force": re.compile(r"^\s*rm(?=[^\n]*\s-[A-Za-z]*r)(?=[^\n]*\s-[A-Za-z]*f)|^\s*rm(?=[^\n]*\s--recursive\b)(?=[^\n]*\s--force\b)", re.I),
     "git_push_force": re.compile(r"^\s*git\s+(?:-[^\s]+\s+\S+\s+)*push\s+(?:(?:--force|-f)\b|[^\n]*\s(?:--force|-f)\b)", re.I),
     "terraform_destroy": re.compile(r"^\s*terraform\s+destroy\b", re.I),
@@ -55,13 +56,95 @@ COMMAND_SIGNATURES = {
 
 
 def command_segments(command: str) -> list[str]:
-    """Conservatively split executable shell segments, preserving quoted prose."""
-    return [segment.strip() for segment in re.split(r"(?:&&|\|\||;|\|)", command) if segment.strip()]
+    """Split unquoted common Bash command-list separators.
+
+    This tiny lexer deliberately recognizes only quotes, escapes, and list
+    separators; it is not an attempt to parse shell grammar.
+    """
+    segments: list[str] = []
+    start = 0
+    quote: str | None = None
+    escaped = False
+    index = 0
+    while index < len(command):
+        char = command[index]
+        if escaped:
+            escaped = False
+        elif char == "\\" and quote != "'":
+            escaped = True
+        elif quote:
+            if char == quote:
+                quote = None
+        elif char in {"'", '"'}:
+            quote = char
+        elif char in "\r\n;|":
+            end = index
+            if char == "\r" and command[index + 1:index + 2] == "\n":
+                index += 1
+            elif char in "&|" and command[index + 1:index + 2] == char:
+                index += 1
+            segment = command[start:end].strip()
+            if segment:
+                segments.append(segment)
+            start = index + 1
+        elif char == "&" and command[index + 1:index + 2] == "&":
+            segment = command[start:index].strip()
+            if segment:
+                segments.append(segment)
+            index += 1
+            start = index + 1
+        index += 1
+    segment = command[start:].strip()
+    if segment:
+        segments.append(segment)
+    return segments
 
 
 def executable_segment(segment: str) -> str:
-    """Remove non-executing POSIX command modifiers before signature matching."""
-    return re.sub(r"^\s*(?:(?:command|nice)\s+)+", "", segment, flags=re.I)
+    """Remove a small, explicit set of non-executing POSIX wrappers.
+
+    This is intentionally not a shell parser. Unparseable input is returned
+    unchanged; nested shell evaluation is handled by its own deny signature.
+    """
+    try:
+        tokens = shlex.split(segment, posix=True)
+    except ValueError:
+        return segment
+
+    while tokens:
+        wrapper = tokens[0].lower()
+        if wrapper in {"command", "nice"}:
+            tokens.pop(0)
+            if wrapper == "command":
+                while tokens and tokens[0].startswith("-"):
+                    tokens.pop(0)
+            elif tokens[:1] == ["-n"]:
+                del tokens[:2]
+        elif wrapper == "sudo":
+            tokens.pop(0)
+            while tokens and tokens[0].startswith("-"):
+                option = tokens.pop(0)
+                if option in {"-u", "-g", "-h", "-p", "-r", "-t", "-C", "--user", "--group", "--host", "--prompt", "--role", "--type", "--close-from"} and tokens:
+                    tokens.pop(0)
+        elif wrapper == "timeout":
+            tokens.pop(0)
+            while tokens and tokens[0].startswith("-"):
+                option = tokens.pop(0)
+                if option in {"-k", "-s", "--kill-after", "--signal"} and tokens:
+                    tokens.pop(0)
+            if tokens:
+                tokens.pop(0)
+        elif wrapper == "env":
+            tokens.pop(0)
+            while tokens and (tokens[0].startswith("-") or re.fullmatch(r"[A-Za-z_]\w*=.*", tokens[0])):
+                option = tokens.pop(0)
+                if option in {"-u", "--unset", "-C", "--chdir", "-S", "--split-string"} and tokens:
+                    tokens.pop(0)
+        elif re.fullmatch(r"[A-Za-z_]\w*=.*", tokens[0]):
+            tokens.pop(0)
+        else:
+            break
+    return " ".join(tokens)
 
 
 def scan(paths: Iterable[str] = (), command: str | None = None, policy_path: Path = POLICY_PATH) -> dict:
