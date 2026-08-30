@@ -20,6 +20,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--command", required=True)
 parser.add_argument("--scanner", default=str(Path(__file__).with_name("scan-triggers")))
 parser.add_argument("--log-root", type=Path, default=Path.cwd())
+parser.add_argument("--platform", default="unknown")
 args = parser.parse_args()
 
 try:
@@ -32,7 +33,16 @@ try:
             or not all(isinstance(item, dict) and isinstance(item.get("id"), str) for item in result["triggers"])):
         raise ValueError("malformed scanner result")
 except Exception as error:
-    append_log(args.log_root, "L?", f"DENIED: scanner failure ({error})")
+    append_log(
+        args.log_root,
+        "L?",
+        "DENIED: scanner failure",
+        reason=type(error).__name__,
+        action="evaluate_sensitive_command",
+        result="deny",
+        assurance_state="DEGRADED",
+        platform=args.platform,
+    )
     print(json.dumps({"decision": "deny", "reason": "scanner_failure"}))
     raise SystemExit(3)
 
@@ -42,6 +52,14 @@ if not sensitive:
     raise SystemExit(0)
 
 reason = ", ".join(item["id"] for item in sensitive)
-append_log(args.log_root, f"L{result['mechanical_floor']}", f"DENIED: {reason} ({args.command})")
+append_log(
+    args.log_root,
+    f"L{result['mechanical_floor']}",
+    f"DENIED: {reason}",
+    reason=reason,
+    action="sensitive_command",
+    result="deny",
+    platform=args.platform,
+)
 print(json.dumps({"decision": "deny", "reason": reason, "mechanical_floor": result["mechanical_floor"]}))
 raise SystemExit(2)

@@ -1,5 +1,5 @@
-# Deferred V2.2 telemetry design. It is not part of the V2.2.1 runtime workflow;
-# current enforcement uses `.workflow/log.txt` for human inspection.
+# Historical V2.2 telemetry design, superseded by core/observability.md.
+# It is retained for audit and is not V2.3 runtime policy.
 version: 1
 record:
   mode: BUILD

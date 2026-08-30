@@ -1,0 +1,11 @@
+models:
+  STRONG:
+    model: provider-strong-model
+  BALANCED:
+    model: provider-balanced-model
+  ECONOMY:
+    model: provider-economy-model
+
+# Copy and specialize this mapping in platform configuration. Core policy must
+# refer only to STRONG, BALANCED, and ECONOMY. Do not infer that a model switch
+# is available merely because a mapping exists.

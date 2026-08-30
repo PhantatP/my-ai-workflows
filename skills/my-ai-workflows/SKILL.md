@@ -1,48 +1,47 @@
 ---
 name: my-ai-workflows
-description: Apply My AI Workflows V2.2 to BUILD tasks: mechanically scan changes, choose progressive rigor, challenge low-rigor routing, re-evaluate new evidence, and verify proportionately. Use for coding, debugging, refactoring, configuration, architecture, and automation work.
+description: Route BUILD, RESEARCH, LEARN, and mixed tasks through My AI Workflows V2.3, selecting proportionate assurance, evidence, model capability, and coordination while preserving deterministic BUILD safeguards.
 ---
 
-# My AI Workflows V2.2 — BUILD core
+# My AI Workflows V2.3
 
-Main owns the task and selects the minimum reliable orchestration level. An
-agent exists only for independent context or judgment; planning is normally a
-phase, testing an activity, and debugging a root-cause methodology.
+Main owns intent, routing, integration, completion, and communication. Use the
+least process, evidence, model capability, context, and coordination that can
+achieve the required confidence.
 
-## Route every BUILD task
+## Route the task
 
-1. Inspect the intended behavior and relevant execution path before editing.
-2. Mechanically scan the actual change set and tool output for sensitive paths,
-   migrations/schema, dependency manifests/lockfiles, production/deployment/
-   infrastructure, public API/protocol files, and destructive operations.
-3. Every mechanical match establishes a Level 3 minimum. Record its trigger,
-   detector, evidence reference, and floor. It cannot be reduced by explanation.
-4. Assess complexity and explicit judgment risks separately: coupling,
-   ambiguity, test-oracle quality, hidden dependencies, compatibility,
-   concurrency, rollback, and unresolved assumptions.
-5. Required level is `max(mechanical floor, judgment/complexity level)`:
-   - Level 0: direct/negligible work.
-   - Level 1: inspect → implement → verify.
-   - Level 2: explore/plan → implement → verify.
-   - Level 3: Level 2 plus independent, read-only falsification review.
-   - Level 4: Level 3 plus parallel investigation only for separable work.
-6. Before Levels 0–2 execution, record a possible miss and observable evidence
-   that would force escalation. Repeat this checkpoint before de-escalation.
-7. Re-evaluate new evidence continuously. Sensitive files entering the actual
-   diff automatically activate their trigger. Escalation is always allowed.
-8. De-escalation needs inspectable evidence, a fresh counterargument, and an
-   audit event. Removing a mechanical floor additionally requires an
-   inspectable trigger-disproof event.
-9. Verify proportionately with relevant tests, builds, static/type checks,
-   runtime checks, and diff inspection. At Level 3+, an independent reviewer
-   tries to falsify correctness and does not edit.
+1. Read `workflow/core/principles.md`, `routing.md`, and `assurance.md`.
+2. Segment the task into BUILD, RESEARCH, and LEARN; treat Assistant capture,
+   retrieval, organization, and handoff as information logistics.
+3. Assess complexity, risk, uncertainty, evidence requirement, and
+   reversibility independently. Apply any mechanical floor.
+4. Choose L0–L4, then choose execution strategy and model capability. Assurance,
+   model tier, and agent count are separate decisions.
+5. Before L0–L2 work, state a possible miss and observable escalation evidence.
+6. Read and apply only the relevant profile under `workflow/profiles/`.
+7. Re-evaluate routing whenever evidence changes. Report degraded platform
+   assurance honestly.
+8. Verify each domain by its own contract: artifact behavior for BUILD,
+   evidence and conclusion for RESEARCH, and independent use for LEARN.
 
-## Report audit facts
+For BUILD, scan intended and actual paths with the executable trigger policy,
+use the fail-closed guard before external sensitive commands, and never lower a
+mechanical floor without an inspectable trigger-disproof event. L3+ BUILD uses
+an independent read-only falsification reviewer.
 
-Distinguish mechanical facts from semantic interpretation. Include mode,
-initial/final level, mechanical floor and triggers, escalation/de-escalation or
-disproof events, independent-review requirement/completion, verification
-evidence, files changed, judgment risks, review findings, and remaining
-uncertainty. Persist the record only when the repository opts in; otherwise
-include it in the final report.
+For model routing, prefer the cheapest sufficiently capable model, account for
+handoff cost, escalate capability before agent count when reasoning is the
+constraint, and use an independent instance when independence is the need.
+
+For persistent information, keep Capture, Evidence, Working State, and
+Knowledge distinct. Assistant-generated material is not trusted Knowledge by
+default. Use Markdown Task Packets for portable handoff.
+
+## Report
+
+Include domains, initial and final levels, material model transitions,
+mechanical floors and triggers, assurance degradation, evidence, verification,
+independent review, changed artifacts, findings, and remaining uncertainty.
+Do not log secrets or unnecessary raw user content.
 

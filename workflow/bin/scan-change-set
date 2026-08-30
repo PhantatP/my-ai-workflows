@@ -2,6 +2,7 @@
 """Authoritative actual-change-set scanner; also records mechanical activations."""
 from __future__ import annotations
 
+import argparse
 import json
 import subprocess
 import sys
@@ -9,6 +10,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from workflow.enforcement.core import append_log, scan  # noqa: E402
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--platform", default="unknown")
+args = parser.parse_args()
 
 root = Path.cwd()
 
@@ -29,5 +34,5 @@ changed = sorted(set(head_paths()
                      + git_paths(["ls-files", "--others", "--ignored", "--exclude-standard"])))
 result = scan(changed)
 for item in result["triggers"]:
-    append_log(root, f"L{item['minimum_level']}", f"trigger: {item['id']}({item['evidence']})")
+    append_log(root, f"L{item['minimum_level']}", f"trigger: {item['id']}({item['evidence']})", platform=args.platform)
 print(json.dumps(result, sort_keys=True))

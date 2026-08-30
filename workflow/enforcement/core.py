@@ -5,7 +5,7 @@ import fnmatch
 import json
 import re
 import shlex
-from datetime import date
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
 
@@ -170,8 +170,49 @@ def scan(paths: Iterable[str] = (), command: str | None = None, policy_path: Pat
     return {"triggers": matches, "mechanical_floor": max((item["minimum_level"] for item in matches), default=policy.get("default_floor", 0))}
 
 
-def append_log(root: Path, level: str, event: str, review: str = "-", elapsed: str = "-") -> None:
+def _log_value(value: object) -> str:
+    """Keep one event on one human-readable line without logging raw payloads."""
+    return str(value).replace("\r", " ").replace("\n", " ").replace("|", "/")[:500]
+
+
+def append_log(
+    root: Path,
+    level: str,
+    event: str,
+    review: str = "-",
+    elapsed: str = "-",
+    *,
+    platform: str = "unknown",
+    session: str = "-",
+    domain: str = "BUILD",
+    level_before: str = "-",
+    level_after: str | None = None,
+    reason: str = "-",
+    model_before: str = "-",
+    model_after: str = "-",
+    action: str = "-",
+    result: str = "recorded",
+    assurance_state: str = "NORMAL",
+) -> None:
+    """Append a V2.3 routing event without unnecessary raw user content."""
     log = root / ".workflow" / "log.txt"
     log.parent.mkdir(parents=True, exist_ok=True)
+    fields = {
+        "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "platform": platform,
+        "session": session,
+        "domain": domain,
+        "level_before": level_before,
+        "level_after": level_after or level,
+        "reason": reason,
+        "model_before": model_before,
+        "model_after": model_after,
+        "action": action,
+        "result": result,
+        "assurance_state": assurance_state,
+        "event": event,
+        "review": review,
+        "elapsed": elapsed,
+    }
     with log.open("a", encoding="utf-8") as handle:
-        handle.write(f"{date.today().isoformat()} | {level} | {event} | {review} | {elapsed}\n")
+        handle.write(" | ".join(f"{key}={_log_value(value)}" for key, value in fields.items()) + "\n")

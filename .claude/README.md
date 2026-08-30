@@ -1,10 +1,10 @@
-# Claude Code V2.2 adapter
+# Claude Code V2.3 adapter
 
-`agents/` contains the active V2.2 Claude Code subagent definitions. Their
+`agents/` contains the optional V2.3 Claude Code role definitions. Their
 frontmatter is the enforceable local configuration for model selection and
 tool access.
 
-Use them only as directed by `workflow/routing/build.md`; their existence does
+Use them only as directed by Core and the relevant domain profile; their existence does
 not create a fixed pipeline. The V1 definitions are preserved separately in
 `archive/v1/agents/`.
 

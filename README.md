@@ -1,17 +1,20 @@
 # My AI Workflows
 
-Portable workflow configuration for [Claude Code](https://claude.com/claude-code)
-and Codex. V2.2.1 adds deterministic BUILD enforcement: executable trigger
-scanning, fail-closed sensitive-command guarding, and a small human-readable
-operational log.
+Portable adaptive workflow configuration for Codex, Claude Code, Hermes, and
+future execution surfaces. V2.3 makes BUILD, RESEARCH, and LEARN first-class,
+separates assurance from model routing, and defines portable Markdown
+information and handoff conventions while preserving deterministic BUILD
+enforcement.
 
 ## Contents
 
-- `workflow/` — platform-neutral policy, executable trigger scanner, enforcement
-  adapters, minimal logging guidance, roles, and skill audit.
+- `workflow/` — domain-neutral Core, three domain profiles, executable BUILD
+  enforcement, platform adapters, information templates, roles, and skill audit.
 - `CLAUDE.md` — thin Claude Code adapter for the shared policy.
 - `AGENTS.md` — thin Codex adapter for the shared policy.
-- `skills/` — active V2.2 methodologies: BUILD routing, testing, and
+- `HERMES.md` — thin Hermes adapter emphasizing information trust and honest
+  capability degradation.
+- `skills/` — active V2.3 methodologies: adaptive routing, testing, and
   independent falsification review.
 - `archive/v1/` — remaining V1 inventory, clearly separate from the active
   workflow and pending audit.

@@ -8,9 +8,9 @@ maintenance cost.
 
 These are hypotheses for measurement, not final removals.
 
-| Existing skill | Provisional lifecycle | V2.2 rationale |
+| Existing skill | Provisional lifecycle | V2.3 rationale |
 | --- | --- | --- |
-| `my-ai-workflows` | KEEP — V2.2 core | portable BUILD routing methodology |
+| `my-ai-workflows` | KEEP — V2.3 core | portable domain, assurance, model, and information routing |
 | `test-backend`, `test-frontend` | KEEP — migrated | reusable verification methodology |
 | `scrutinize` | KEEP — migrated | useful falsification-oriented review method |
 | `lint-check` | ON-DEMAND | tool-specific verification, not global routing |

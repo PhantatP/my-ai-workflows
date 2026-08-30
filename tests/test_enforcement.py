@@ -77,6 +77,16 @@ def test_intended_path_scanner_mechanically_writes_activation_log(tmp_path):
     subprocess.run([sys.executable, scanner, "--intended-path", "src/auth/session.ts", "--log-root", tmp_path], check=True)
     assert "trigger: authentication_sensitive(src/auth/session.ts)" in (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
 
+def test_command_scanner_log_uses_signature_instead_of_raw_command(tmp_path):
+    scanner = ROOT / "workflow" / "bin" / "scan-triggers"
+    command = "terraform destroy --token TOPSECRET"
+    result = subprocess.run([sys.executable, scanner, "--command", command, "--log-root", tmp_path], capture_output=True, text=True)
+    assert result.returncode == 0
+    log = (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
+    assert "trigger: destructive_operation(terraform_destroy)" in log
+    assert command not in log
+    assert "TOPSECRET" not in log
+
 def test_actual_change_set_rescans_undeclared_sensitive_path():
     initial = scan(["src/ui/button.tsx"])
     actual = scan(["src/ui/button.tsx", "src/auth/session.ts"])
@@ -106,12 +116,44 @@ def test_destructive_command_is_denied_and_mechanism_writes_log(tmp_path):
     assert result.returncode == 2
     assert "DENIED: destructive_operation" in (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
 
+def test_operational_log_contains_v23_routing_fields(tmp_path):
+    result = subprocess.run([sys.executable, ENFORCER, "--command", "terraform destroy", "--log-root", tmp_path], capture_output=True, text=True)
+    assert result.returncode == 2
+    log = (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
+    assert "platform=unknown" in log
+    assert "domain=BUILD" in log
+    assert "level_after=L3" in log
+    assert "assurance_state=NORMAL" in log
+
+def test_sensitive_command_log_does_not_store_raw_command_or_secret(tmp_path):
+    command = "terraform destroy --token TOPSECRET"
+    result = subprocess.run([sys.executable, ENFORCER, "--command", command, "--log-root", tmp_path], capture_output=True, text=True)
+    assert result.returncode == 2
+    log = (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
+    assert command not in log
+    assert "TOPSECRET" not in log
+
+def test_cli_platform_is_recorded_in_operational_log(tmp_path):
+    scanner = ROOT / "workflow" / "bin" / "scan-triggers"
+    result = subprocess.run([sys.executable, scanner, "--intended-path", "src/auth/session.ts", "--log-root", tmp_path, "--platform", "codex"], capture_output=True, text=True)
+    assert result.returncode == 0
+    assert "platform=codex" in (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
+
 @pytest.mark.parametrize("scanner_body", ["raise SystemExit(1)", "print('{\"triggers\": [{\"id\": \"production_sensitive_operation\"}]}')"])
 def test_sensitive_enforcement_fails_closed_on_scanner_error(tmp_path, scanner_body):
     fake_scanner = tmp_path / "scanner.py"
     fake_scanner.write_text(scanner_body, encoding="utf-8")
     result = subprocess.run([sys.executable, ENFORCER, "--command", "terraform apply", "--scanner", fake_scanner, "--log-root", tmp_path], capture_output=True, text=True)
     assert result.returncode == 3
+
+def test_scanner_failure_log_does_not_store_scanner_stderr(tmp_path):
+    fake_scanner = tmp_path / "scanner.py"
+    fake_scanner.write_text("import sys\nprint('TOPSECRET', file=sys.stderr)\nraise SystemExit(1)", encoding="utf-8")
+    result = subprocess.run([sys.executable, ENFORCER, "--command", "terraform apply", "--scanner", fake_scanner, "--log-root", tmp_path], capture_output=True, text=True)
+    assert result.returncode == 3
+    log = (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
+    assert "TOPSECRET" not in log
+    assert "reason=RuntimeError" in log
 
 def test_shared_guard_cannot_self_approve_a_destructive_command(tmp_path):
     result = subprocess.run([sys.executable, ENFORCER, "--command", "git push -f origin main", "--log-root", tmp_path], capture_output=True, text=True)
@@ -120,7 +162,10 @@ def test_shared_guard_cannot_self_approve_a_destructive_command(tmp_path):
 def test_claude_hook_denies_and_logs_malformed_payload():
     result = subprocess.run([sys.executable, CLAUDE_HOOK], input="not json", capture_output=True, text=True)
     assert result.returncode == 2
-    assert "malformed hook payload" in (ROOT / ".workflow" / "log.txt").read_text(encoding="utf-8")
+    event = (ROOT / ".workflow" / "log.txt").read_text(encoding="utf-8").splitlines()[-1]
+    assert "malformed hook payload" in event
+    assert "platform=claude_code" in event
+    assert "not json" not in event
 
 @pytest.mark.parametrize("payload", ['{"tool_name":"Bash","tool_input":"not-an-object"}', '{"tool_name":"Bash","tool_input":{"command":3}}'])
 def test_claude_hook_denies_malformed_bash_shapes(payload):

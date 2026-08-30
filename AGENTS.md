@@ -1,47 +1,60 @@
 # My AI Workflows — Codex adapter
 
-This repository implements My AI Workflows V2.2.1. The platform-neutral policy
+This repository implements My AI Workflows V2.3. The platform-neutral policy
 lives in [`workflow/`](workflow/README.md); this is the Codex entry point.
 
-## Required reading order for BUILD work
+## Required reading order
 
-1. [`workflow/principles.md`](workflow/principles.md)
-2. [`workflow/routing/build.md`](workflow/routing/build.md)
-3. [`workflow/routing/triggers.yaml`](workflow/routing/triggers.yaml)
-4. [`workflow/agents/roles.md`](workflow/agents/roles.md) before delegating.
+1. [`workflow/core/principles.md`](workflow/core/principles.md)
+2. [`workflow/core/architecture.md`](workflow/core/architecture.md)
+3. [`workflow/core/routing.md`](workflow/core/routing.md)
+4. [`workflow/core/assurance.md`](workflow/core/assurance.md)
+5. The relevant profile under [`workflow/profiles/`](workflow/profiles/)
+6. For BUILD, [`workflow/routing/triggers.yaml`](workflow/routing/triggers.yaml)
+7. [`workflow/agents/roles.md`](workflow/agents/roles.md) before delegating.
 
 ## Main owns the task
 
-The active agent is Main. It owns task understanding, strategy, execution,
-integration, and communication. Planning is normally a phase; testing is an
-activity; debugging is a methodology. Use an independent worker only when its
-separate context or judgment is useful.
+The active agent is Main. It owns intent, domain segmentation, routing,
+strategy, execution, integration, completion, and communication. Planning is a
+phase, testing an activity, and debugging a methodology. Delegate only when
+independence, context isolation, specialist capability, or separable work adds
+identifiable value.
 
-For BUILD tasks, apply the shared routing pipeline: inspect, mechanically scan
-the actual change set, assess complexity and judgment risk, run the
-counterargument checkpoint before low-rigor work, execute, re-evaluate on new
-evidence, verify, and record required audit events. Never reduce a mechanical
-floor without an inspectable trigger-disproof event.
+Classify complexity, risk, uncertainty, evidence requirement, and reversibility
+independently. Assurance level, model capability, and agent count are separate.
+Escalate model capability before agent count when the problem is reasoning
+capacity; use an independent instance when independence itself is required.
+Re-evaluate routing on new evidence and state degraded platform assurance
+honestly.
+
+Apply domain correctness: verify the artifact for BUILD, the evidence and
+conclusion for RESEARCH, and the learner's independent use for LEARN. Assistant
+operations move information and must not promote unreviewed material to trusted
+Knowledge.
 
 ## Codex-specific execution
 
-- Use a reviewer subagent at Level 3+; give it task intent, changed files/diff,
-  relevant evidence, and a falsification-oriented assignment. It must not edit
-  the implementation.
+- Use a reviewer subagent for Level 3+ BUILD; give it intent, changed files or
+  diff, relevant evidence, and a falsification-oriented assignment. It must not
+  edit. Other domains require genuinely independent verification but do not
+  automatically require an agent when another independent mechanism suffices.
 - Follow [`.codex/README.md`](.codex/README.md) for Codex's session-level model
   and permission controls; role-level restrictions are delegation contracts.
 - Use parallel workers only at Level 4 and only for independent, separable
   questions.
 - `archive/v1/` contains Claude Code V1 inventory, retained for audit. It is
   not Codex configuration and does not create mandatory workflow stages.
-- Use `workflow/bin/scan-triggers` for intended paths and actual changed paths.
-  Use `workflow/bin/enforce-operation` before external sensitive commands;
+- Use `workflow/bin/scan-triggers --platform codex` for intended BUILD paths
+  and `workflow/bin/scan-change-set --platform codex` for the actual change
+  set. Use `workflow/bin/enforce-operation --platform codex` before external
+  sensitive commands;
   its deny decision is fail-closed. Report enforcement evidence in the final
   response; `.workflow/log.txt` is the minimal local operational log.
 
 ## Core coding constraints
 
-- Inspect the relevant execution path before editing.
+- Inspect the relevant state and execution path before editing.
 - Reproduce bugs and test the root-cause hypothesis before applying a fix.
 - Keep changes within the requested scope and verify requested behavior with
   proportionate evidence.

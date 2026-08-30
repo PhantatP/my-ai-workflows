@@ -1,37 +1,37 @@
-# Active V2.2 role contracts
+# Active V2.3 role contracts
 
-These are the small active BUILD roster. Main is the task owner; a role is
-created only when independent context or judgment adds value.
+Main is the task owner. A role is created only when independent context,
+judgment, specialist capability, or separable work adds identifiable value.
+Assurance level does not map directly to agent count or model tier.
 
 | Role | Typical level | Assignment | Must not | Default capability |
 | --- | --- | --- | --- | --- |
-| Explorer | 2 or 4 | Inspect a bounded question; return paths, evidence, and uncertainty. | Edit, implement, or choose final strategy. | Fast/low-cost model; read-only tools. |
-| Implementer | 2–4 | Make a bounded, approved change and report verification evidence. | Expand scope or self-approve high-risk work. | Strong coding model; read/write and test tools. |
-| Reviewer | 3–4 | Independently falsify the proposed change using the task intent and diff. | Edit code or rubber-stamp. | Strong reasoning model; read-only tools. |
+| Explorer | L2 or L4 | Inspect a bounded question; return evidence, provenance, and uncertainty. | Edit, implement, teach as Main, or choose final strategy. | `ECONOMY` or `BALANCED`; read-only tools. |
+| Implementer | L2–L4 BUILD | Make a bounded, approved artifact change and report verification evidence. | Expand scope or self-approve consequential work. | `BALANCED` or `STRONG`; read/write and test tools. |
+| Reviewer | L3–L4 | Independently falsify an artifact or conclusion from intent and primary evidence. | Edit the implementation or rubber-stamp. | Usually `STRONG`; read-only tools. |
 
-Main selects the model and tools appropriate to the platform. The default
-posture is deliberately asymmetric: exploration may be inexpensive,
-implementation needs write access, and review is read-only and independently
-reasoned. A role's tool boundary is a minimum restriction, not permission to
-take unrelated action.
+Main selects the cheapest sufficiently capable model and appropriate tools.
+Exploration may be inexpensive, BUILD implementation needs write access, and
+review is read-only and independently reasoned. A role's tool boundary is a
+minimum restriction, not permission for unrelated action.
 
-Experimental RESEARCH and LEARN roles (Researcher, Tutor) are not configured as
-active agents yet: Researcher would report sources and uncertainty for
-RESEARCH work, Tutor would teach without owning product decisions for LEARN
-work. Neither exists until real use justifies the independence.
+RESEARCH and LEARN are active domain profiles, not permanent agent roles. Main
+may give an Explorer a bounded evidence question or a Reviewer an independent
+falsification task. A permanent Researcher or Tutor should not be added until
+real use demonstrates value that a bounded assignment cannot supply.
 
-Planning is normally Main's Level 2 phase, not a separate agent. Testing is a
-verification activity. Debugging follows the root-cause methodology. Parallel
-agents require separate, non-overlapping questions; do not parallelize
-duplicate investigation.
+Planning is normally Main's L2 phase, testing is a verification activity, and
+debugging follows the root-cause methodology. Parallel agents are an L4 option
+for separate, non-overlapping questions, not a default for long tasks.
 
 `archive/v1/agents/` is V1 inventory, not the V2.2 active roster. Its
 reduction is a subsequent audit, not part of the BUILD-core migration.
 
 ## Hand-off contract
 
-Every delegation includes the task, bounded assignment, current orchestration
-level, relevant evidence/diff, expected output, and explicit non-goals.
+Every delegation includes the goal, bounded assignment, domain, assurance
+level, relevant evidence or diff, expected output, and explicit non-goals. Use
+the Core Task Packet when persistence or cross-platform transfer is useful.
 Reviewers additionally receive: "Try to falsify correctness; report concrete
 findings with evidence. Do not edit files."
 
