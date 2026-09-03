@@ -8,9 +8,11 @@ maintenance cost.
 
 These are hypotheses for measurement, not final removals.
 
-| Existing skill | Provisional lifecycle | V2.3 rationale |
+| Existing skill | Provisional lifecycle | V2.4 rationale |
 | --- | --- | --- |
-| `my-ai-workflows` | KEEP — V2.3 core | portable domain, assurance, model, and information routing |
+| `my-ai-workflows` | KEEP — V2.4 entry point | portable domain, assurance, model, and information routing plus experimental LEARN interaction |
+| `plan` | EXPERIMENT — Phase 4 validation | evaluate whether concise elicitation, structure, and assumption challenge materially improve genuine work |
+| `grill-me` | EXPERIMENT — Phase 4 validation | evaluate whether adaptive one-question-at-a-time challenge materially improves genuine work |
 | `test-backend`, `test-frontend` | KEEP — migrated | reusable verification methodology |
 | `scrutinize` | KEEP — migrated | useful falsification-oriented review method |
 | `lint-check` | ON-DEMAND | tool-specific verification, not global routing |
@@ -22,6 +24,15 @@ These are hypotheses for measurement, not final removals.
 No skill is automatically active solely because it exists. Future decisions
 should use activation frequency, task category, behavioral effect, defects
 found/prevented, context cost, and overlap.
+
+PLAN and GRILL remain experimental until genuine evidence shows useful behavior
+beyond LEARN at acceptable interaction cost. Promote their interaction
+vocabulary into Core only when Phase 4 supports value, attribution, and
+generalization without disproportionate overhead; otherwise keep the presets
+local, change them, or remove them. Phase 3's closed behavior record is in
+[`experiments/v2.4-phase3.md`](experiments/v2.4-phase3.md); active real-use
+evidence belongs in
+[`experiments/v2.4-phase4.md`](experiments/v2.4-phase4.md).
 
 ## Active skill placement
 

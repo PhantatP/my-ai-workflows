@@ -1,8 +1,9 @@
 # My AI Workflows — Claude Code adapter
 
-This repository implements My AI Workflows V2.3. The shared workflow policy is
-platform-neutral and lives in [`workflow/`](workflow/README.md). This file is
-only the Claude Code entry point.
+This repository implements My AI Workflows V2.4 experimentally while retaining
+the V2.3 general architecture. The shared workflow policy is platform-neutral
+and lives in [`workflow/`](workflow/README.md). This file is only the Claude
+Code entry point.
 
 ## Required reading order
 
@@ -26,6 +27,9 @@ Assess complexity, risk, uncertainty, evidence requirement, and reversibility
 independently. Assurance, model capability, and agent count are separate.
 Apply the relevant domain correctness contract and re-evaluate on new evidence.
 Assistant material enters Capture or Working State unless deliberately curated.
+For LEARN, apply the experimental interaction strategy in the LEARN profile and
+keep workflow metadata internal by default; do not generalize it into a
+cross-domain interaction policy yet.
 
 ## Claude-specific execution
 

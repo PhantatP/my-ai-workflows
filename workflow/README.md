@@ -1,13 +1,32 @@
-# My AI Workflows V2.3
+# My AI Workflows V2.4 (experimental)
 
 This directory contains the platform-neutral adaptive workflow. BUILD,
 RESEARCH, and LEARN share a domain-neutral Core while defining different
 correctness evidence. Model routing, execution-platform adapters, and portable
 Markdown information conventions remain separate concerns.
 
+V2.4 experimentally improves interaction inside the LEARN profile while
+retaining the V2.3 general architecture. It does not yet introduce a
+cross-domain Interaction Layer or new interaction routing machinery; promotion
+into Core depends on evidence from later cross-domain experiments.
+
+Phase 2 adds thin PLAN and GRILL skills to test the same interaction vocabulary
+across existing domains. They remain optional presets outside Core and do not
+define domains, assurance levels, model tiers, agent roles, or fixed state
+machines.
+
+Phase 3 closed after controlled cross-domain validation established acceptable
+interaction behavior; its [record](experiments/v2.4-phase3.md) preserves the
+original criteria and the explicit phase-boundary decision. Phase 4 now
+evaluates value, friction, attribution, and generalization through genuine use
+in its active [protocol and evidence ledger](experiments/v2.4-phase4.md).
+Synthetic regressions do not count as Phase 4 evidence or justify Core
+promotion.
+
 BUILD retains the V2.2.1 deterministic trigger scanner and fail-closed shared
-guard. RESEARCH and LEARN are intentionally minimal profiles to be refined from
-real use rather than elaborate agent orchestration.
+guard. RESEARCH remains intentionally minimal, and LEARN now carries a bounded
+interaction experiment to be refined through real sessions rather than
+elaborate agent orchestration.
 
 ## Layout
 
@@ -21,6 +40,7 @@ workflow/
 ├── enforcement/          # shared standard-library BUILD implementation
 ├── routing/              # BUILD trigger policy and compatibility entry point
 ├── agents/               # optional delegation contracts
+├── experiments/          # bounded experimental protocols and working evidence
 ├── future/               # deferred inventory, not runtime workflow
 └── skills.md             # skill lifecycle audit
 ```

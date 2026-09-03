@@ -1,10 +1,10 @@
 # My AI Workflows
 
 Portable adaptive workflow configuration for Codex, Claude Code, Hermes, and
-future execution surfaces. V2.3 makes BUILD, RESEARCH, and LEARN first-class,
-separates assurance from model routing, and defines portable Markdown
-information and handoff conventions while preserving deterministic BUILD
-enforcement.
+future execution surfaces. V2.4 experimentally improves LEARN interaction
+while retaining the V2.3 general architecture, separation of assurance from
+model routing, portable Markdown information conventions, and deterministic
+BUILD enforcement.
 
 ## Contents
 
@@ -14,8 +14,9 @@ enforcement.
 - `AGENTS.md` — thin Codex adapter for the shared policy.
 - `HERMES.md` — thin Hermes adapter emphasizing information trust and honest
   capability degradation.
-- `skills/` — active V2.3 methodologies: adaptive routing, testing, and
-  independent falsification review.
+- `skills/` — active V2.4 methodologies: adaptive routing, testing,
+  independent falsification review, and experimental PLAN/GRILL interaction
+  presets.
 - `archive/v1/` — remaining V1 inventory, clearly separate from the active
   workflow and pending audit.
 

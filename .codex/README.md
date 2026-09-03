@@ -1,8 +1,11 @@
-# Codex V2.3 adapter notes
+# Codex V2.4 experimental adapter notes
 
 Codex loads repository instructions from `AGENTS.md`. Core policy, domain
 profiles, model routing, and information conventions remain in `workflow/`;
 this file documents session-level limitations only.
+
+V2.4 retains the V2.3 general architecture and adds a LEARN-profile interaction
+experiment; it does not add a cross-domain Interaction Layer.
 
 The portable role restrictions are defined in
 [`workflow/agents/roles.md`](../workflow/agents/roles.md) and must be included

@@ -1,4 +1,4 @@
-# Active V2.3 role contracts
+# Active V2.4 role contracts
 
 Main is the task owner. A role is created only when independent context,
 judgment, specialist capability, or separable work adds identifiable value.
@@ -19,6 +19,10 @@ RESEARCH and LEARN are active domain profiles, not permanent agent roles. Main
 may give an Explorer a bounded evidence question or a Reviewer an independent
 falsification task. A permanent Researcher or Tutor should not be added until
 real use demonstrates value that a bounded assignment cannot supply.
+
+The experimental LEARN interaction strategy does not create a Tutor role. Its
+primitives are conversational tendencies owned by Main, not agent assignments
+or a separate orchestration system.
 
 Planning is normally Main's L2 phase, testing is a verification activity, and
 debugging follows the root-cause methodology. Parallel agents are an L4 option
