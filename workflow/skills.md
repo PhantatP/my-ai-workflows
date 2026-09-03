@@ -8,9 +8,9 @@ maintenance cost.
 
 These are hypotheses for measurement, not final removals.
 
-| Existing skill | Provisional lifecycle | V2.4 rationale |
+| Existing skill | Provisional lifecycle | V2.5 rationale |
 | --- | --- | --- |
-| `my-ai-workflows` | KEEP — V2.4 entry point | portable domain, assurance, model, and information routing plus experimental LEARN interaction |
+| `my-ai-workflows` | KEEP — V2.5 entry point | portable domain, assurance, model, and experimental artifact-lifecycle routing plus experimental LEARN interaction |
 | `plan` | EXPERIMENT — Phase 4 validation | evaluate whether concise elicitation, structure, and assumption challenge materially improve genuine work |
 | `grill-me` | EXPERIMENT — Phase 4 validation | evaluate whether adaptive one-question-at-a-time challenge materially improves genuine work |
 | `test-backend`, `test-frontend` | KEEP — migrated | reusable verification methodology |

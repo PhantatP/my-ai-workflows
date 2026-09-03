@@ -2,45 +2,50 @@
 
 Markdown is the canonical portable representation for persistent workflow information. Storage remains human-readable, editable, vendor-independent, and usable without an AI system. The user retains ownership and can inspect, edit, move, or delete it without an AI system. Obsidian or a synchronized filesystem may be used, but correctness must not depend on Obsidian-specific behavior.
 
-## Information classes
+## V2.5 experimental lifecycle
 
-| Class | Purpose | Trust posture |
-| --- | --- | --- |
-| Capture | Raw notes, links, clips, transcripts, and assistant discoveries | Cheap and unreviewed |
-| Evidence | Sources, quotes, experiments, test output, and provenance | Supports or challenges conclusions |
-| Working State | Active questions, decisions, mastery estimates, task packets, and handoffs | Mutable and human-readable |
-| Knowledge | Durable explanations, verified conclusions, and reusable procedures | Curated for reuse |
+Persistent information follows the bounded
+[V2.5 Artifact Lifecycle and Provenance experiment](../experiments/v2.5-artifact-lifecycle.md).
+Classify by artifact role and lifecycle, resolve its strongest context, follow
+existing local conventions, preserve provenance and relationships, then choose
+the appropriate write mode.
 
-Evidence remains distinguishable from conclusions. Assistant-generated material enters Capture or Working State unless a human or domain-appropriate verification process deliberately curates it into Knowledge.
+Artifact roles are `capture`, `working`, `source`, `reference`, `decision`, and
+`knowledge`. Lifecycle classes are `ephemeral`, `living`, `snapshot`,
+`immutable`, and `durable`. These dimensions do not replace BUILD, RESEARCH, or
+LEARN correctness and do not map directly to domain folders.
 
-## Lifecycle
+Before writing persistent information:
 
-`Capture → Evaluate → discard | preserve as Evidence | attach to Working State | curate into Knowledge`
+1. Inspect library- and context-local rules.
+2. Resolve project, area, reusable-resource, or uncertain ownership.
+3. Check for an existing canonical artifact when the role is durable.
+4. Choose `create`, `update`, `snapshot`, or `do not overwrite`.
+5. Keep original sources distinguishable from synthesis and transformed
+   representations linked to the same source identity.
 
-Folder placement should primarily represent lifecycle or use. Metadata and links may express topics and domains. Keep metadata minimal; useful fields include `type`, `status`, `topics`, `domains`, `confidence`, `created`, and `updated`.
+Material claims intended to affect future reasoning, decisions, or durable
+knowledge remain traceable to evidence. Assistant polish alone does not justify
+promotion to knowledge.
 
-BUILD, RESEARCH, and LEARN reuse the same Knowledge layer. Do not duplicate a concept into separate domain knowledge stores.
+## Placement and autonomy
 
-## Initial vault convention
+Local conventions override generic placement. Prefer active project context,
+then an ongoing Area, then a reusable Resource location; use Inbox when the
+destination is genuinely unclear. Do not create new Projects, Areas, folder
+taxonomies, metadata, or source records without demonstrated utility.
 
-An adapter may use this initial convention:
+An Obsidian/PARA layout is one compatible implementation, not a Core contract:
 
 ```text
-Vault/
-├── 00 Inbox/Assistant, Web, Quick
-├── 10 Knowledge/
-├── 20 Learning/
-├── 30 Research/
-├── 40 Projects/
-├── 50 Assistant/Task Packets, Handoffs, Learner State, Research State
-└── 90 Archive/
+01 Inbox / 02 Projects / 03 Areas / 04 Resources / 05 Archive / 90 Assets
 ```
 
-Assistant flow is `capture or retrieve → optionally enrich → stage → organize
-→ persist`. RESEARCH promotes supported stable conclusions through Evidence and
-Working State into Knowledge. LEARN retrieves shared Knowledge, records learner
-evidence in Working State, and updates mastery estimates only from demonstrated
-performance.
+Agents may classify and place new artifacts, update an unambiguous canonical
+living artifact, preserve sources, and deduplicate identical source identities.
+They should ask or propose before materially moving, merging, deleting,
+archiving, promoting, or restructuring existing human information when intent
+is uncertain.
 
 The repository supplies templates only; it must not create, populate, or claim
 ownership of a user's vault without an explicit request.

@@ -1,4 +1,4 @@
-# Active V2.4 role contracts
+# Active V2.5 role contracts
 
 Main is the task owner. A role is created only when independent context,
 judgment, specialist capability, or separable work adds identifiable value.

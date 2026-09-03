@@ -1,6 +1,6 @@
 # My AI Workflows — Codex adapter
 
-This repository implements My AI Workflows V2.4 experimentally while retaining
+This repository implements My AI Workflows V2.5 experimentally while retaining
 the V2.3 general architecture. The platform-neutral policy lives in
 [`workflow/`](workflow/README.md); this is the Codex entry point.
 
@@ -33,6 +33,11 @@ Apply domain correctness: verify the artifact for BUILD, the evidence and
 conclusion for RESEARCH, and the learner's independent use for LEARN. Assistant
 operations move information and must not promote unreviewed material to trusted
 Knowledge.
+
+For persistent writes, apply the V2.5 Artifact Lifecycle policy in
+[`workflow/core/information.md`](workflow/core/information.md): classify role
+and lifecycle, resolve context, follow local conventions, check canonical
+artifacts, choose create/update/snapshot behavior, and preserve provenance.
 
 For LEARN, apply the experimental interaction strategy in the LEARN profile.
 Keep simple questions direct, prefer one meaningful cognitive task per learner

@@ -1,11 +1,18 @@
-# My AI Workflows V2.4 (experimental)
+# My AI Workflows V2.5 (experimental)
 
 This directory contains the platform-neutral adaptive workflow. BUILD,
 RESEARCH, and LEARN share a domain-neutral Core while defining different
 correctness evidence. Model routing, execution-platform adapters, and portable
 Markdown information conventions remain separate concerns.
 
-V2.4 experimentally improves interaction inside the LEARN profile while
+V2.5 adds an experimental Artifact Lifecycle and Provenance policy for any
+information intended to persist beyond an interaction. It classifies artifacts
+by role and lifecycle, resolves context before placement, respects local
+conventions, protects canonical artifacts, and preserves source provenance.
+The full bounded policy and deferred validation protocol are in
+[`experiments/v2.5-artifact-lifecycle.md`](experiments/v2.5-artifact-lifecycle.md).
+
+V2.4's experimental interaction behavior remains inside the LEARN profile while
 retaining the V2.3 general architecture. It does not yet introduce a
 cross-domain Interaction Layer or new interaction routing machinery; promotion
 into Core depends on evidence from later cross-domain experiments.

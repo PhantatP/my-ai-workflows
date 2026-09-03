@@ -10,8 +10,9 @@ The workflow keeps five concerns separable:
 
 The Assistant layer sits around the router to capture, retrieve, organize,
 prepare, dispatch, remind, and hand off information. It does not define a
-fourth correctness objective. The Information layer supplies portable Capture,
-Evidence, Working State, and Knowledge to every domain and platform.
+fourth correctness objective. The Information layer supplies the experimental
+cross-domain artifact roles, lifecycles, and provenance rules to every domain
+and platform.
 
 A mixed task may route its segments independently, for example RESEARCH L2,
 LEARN L1, then BUILD L3. The highest level does not impose identical process on

@@ -2,3 +2,6 @@
 __pycache__/
 .pytest_cache/
 experiments/
+!workflow/experiments/
+workflow/experiments/*
+!workflow/experiments/v2.5-artifact-lifecycle.md

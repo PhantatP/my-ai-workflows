@@ -1,6 +1,6 @@
 # My AI Workflows — Hermes adapter
 
-This repository implements My AI Workflows V2.4 experimentally while retaining
+This repository implements My AI Workflows V2.5 experimentally while retaining
 the V2.3 general architecture. The portable workflow lives in
 [`workflow/`](workflow/README.md); this is the Hermes entry point.
 
@@ -15,8 +15,10 @@ the V2.3 general architecture. The portable workflow lives in
 
 Main retains task ownership. Treat Assistant capture, retrieval, organization,
 preparation, and dispatch as information logistics rather than a fourth domain.
-Write uncertain material to Capture or Working State, preserve provenance, and
-do not promote assistant-generated content into trusted Knowledge automatically.
+For persistent writes, classify artifact role and lifecycle, resolve context,
+respect local conventions and canonical artifacts, and preserve provenance.
+Route uncertain captures to Inbox and do not promote assistant-generated
+content into trusted Knowledge automatically.
 
 Use a Markdown Task Packet when handing serious work to Codex, Claude Code, or
 another surface. State unsupported capabilities and degraded assurance

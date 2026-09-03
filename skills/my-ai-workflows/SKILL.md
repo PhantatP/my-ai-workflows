@@ -1,9 +1,9 @@
 ---
 name: my-ai-workflows
-description: Route BUILD, RESEARCH, LEARN, and mixed tasks through My AI Workflows V2.4, including experimental adaptive LEARN interaction while preserving deterministic BUILD safeguards.
+description: Route BUILD, RESEARCH, LEARN, and mixed tasks through My AI Workflows V2.5, including experimental artifact lifecycle and adaptive LEARN interaction while preserving deterministic BUILD safeguards.
 ---
 
-# My AI Workflows V2.4 (experimental)
+# My AI Workflows V2.5 (experimental)
 
 Main owns intent, routing, integration, completion, and communication. Use the
 least process, evidence, model capability, context, and coordination that can
@@ -40,9 +40,12 @@ For model routing, prefer the cheapest sufficiently capable model, account for
 handoff cost, escalate capability before agent count when reasoning is the
 constraint, and use an independent instance when independence is the need.
 
-For persistent information, keep Capture, Evidence, Working State, and
-Knowledge distinct. Assistant-generated material is not trusted Knowledge by
-default. Use Markdown Task Packets for portable handoff.
+For persistent information, read `workflow/core/information.md`. Classify the
+artifact's role and lifecycle, resolve its strongest context, follow existing
+local conventions, check for a canonical artifact, choose create, update,
+snapshot, or no-overwrite behavior, and preserve source provenance. Do not
+promote polished assistant output to knowledge automatically. Use Markdown Task
+Packets for portable handoff.
 
 During V2.4 Phase 4, record a concise entry in
 `workflow/experiments/v2.4-phase4.md` when a genuine session naturally reaches

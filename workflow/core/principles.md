@@ -13,7 +13,7 @@
 11. Delegate only for identifiable value such as independent verification, context isolation, specialist capability, or separable work.
 12. Platform limitations and degraded assurance remain explicit; an advisory fallback is not mechanical enforcement.
 13. Markdown is the canonical portable format for persistent workflow information.
-14. Capture, Evidence, Working State, and Knowledge remain distinct; assistant-generated material is not trusted Knowledge automatically.
+14. Persistent artifacts are classified by role and lifecycle, not workflow domain; sources remain distinct from synthesis, and assistant-generated material is not trusted Knowledge automatically.
 15. Do not automate complexity until real use demonstrates that it prevents failure or materially reduces effort.
 
 The optimization target is confidence per unit of cost and effort.

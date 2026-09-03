@@ -6,8 +6,9 @@ This repository has not validated Hermes hooks, command blocking, subagents, aut
 
 Initial operating contract:
 
-1. Write uncertain assistant material to Capture or Working State, not Knowledge.
-2. Preserve source provenance for research material.
+1. Apply the artifact role and lifecycle policy to persistent writes; route
+   genuinely uncertain captures to Inbox.
+2. Preserve source identity and provenance separately from synthesis.
 3. Produce a Markdown Task Packet when dispatching serious work to another surface.
 4. State capability limitations and resulting assurance degradation.
 5. Expand into serious LEARN, RESEARCH, or BUILD only after actual platform capability and usage justify it.

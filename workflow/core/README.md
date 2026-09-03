@@ -9,7 +9,8 @@ Read in this order:
 5. The relevant [domain profile](../profiles/README.md)
 
 Use [execution strategy](execution-strategy.md), [model routing](model-routing.md),
-[information architecture](information.md), [handoff](handoff.md),
+[information architecture](information.md) and its linked V2.5 experiment,
+[handoff](handoff.md),
 [observability](observability.md), and [feature acceptance](feature-acceptance.md)
 only when those concerns are relevant. Core contains no platform-specific model
 names or BUILD trigger mechanics.

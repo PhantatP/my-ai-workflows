@@ -15,6 +15,9 @@ Before making a feature part of the default workflow, answer:
 11. Can assurance degradation be detected?
 12. Does persistent information remain human-readable?
 13. Does assistant-generated information remain distinguishable from curated Knowledge?
-14. If removed, would the workflow meaningfully become worse?
+14. Does it respect local placement conventions and existing canonical artifacts?
+15. Can source identity and material-claim provenance survive updates and transformations?
+16. Does it avoid unnecessary taxonomy and metadata ceremony?
+17. If removed, would the workflow meaningfully become worse?
 
 If the answer to the last question is no, keep the feature optional or omit it.
