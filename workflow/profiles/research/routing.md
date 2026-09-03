@@ -35,6 +35,11 @@ Evidence requirements guide source selection:
 
 Prefer primary sources for important factual claims. Separate source statements from Main's synthesis. Preserve enough provenance for later re-evaluation.
 
+Start refreshes from the canonical research state. Identify stale or disputed
+claims, retrieve targeted supporting evidence, and open full sources only when
+the summary lacks needed detail or direct verification is required. See
+[Core progressive retrieval](../../core/context.md).
+
 ## Escalation signals
 
 Time-sensitive facts, predictions, conflicting credible sources, contested topics, important decisions, unclear provenance, large inference gaps, or missing primary evidence raise uncertainty or assurance.

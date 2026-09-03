@@ -9,6 +9,7 @@ Read in this order:
 5. The relevant [domain profile](../profiles/README.md)
 
 Use [execution strategy](execution-strategy.md), [model routing](model-routing.md),
+[context retrieval and policy compression](context.md),
 [information architecture](information.md) and its linked V2.5 experiment,
 [handoff](handoff.md),
 [observability](observability.md), and [feature acceptance](feature-acceptance.md)

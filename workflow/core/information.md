@@ -28,6 +28,11 @@ Material claims intended to affect future reasoning, decisions, or durable
 knowledge remain traceable to evidence. Assistant polish alone does not justify
 promotion to knowledge.
 
+Before rereading a large source, check whether a valid canonical representation
+already answers the task and whether the source has changed. Apply the
+[V2.5.1 context policy](context.md): retrieve metadata and canonical state
+before relevant detail or original evidence.
+
 ## Placement and autonomy
 
 Local conventions override generic placement. Prefer active project context,

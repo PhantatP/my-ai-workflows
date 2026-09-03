@@ -7,6 +7,9 @@ the V2.3 general architecture, separation of assurance from
 model routing, portable Markdown information conventions, and deterministic
 BUILD enforcement.
 
+V2.5.1 adds experimental progressive context retrieval and policy compression;
+see [`workflow/core/context.md`](workflow/core/context.md).
+
 ## Contents
 
 - `workflow/` — domain-neutral Core, three domain profiles, executable BUILD

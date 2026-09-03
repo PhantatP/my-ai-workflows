@@ -1,4 +1,4 @@
-# My AI Workflows V2.5 (experimental)
+# My AI Workflows V2.5 / V2.5.1 (experimental)
 
 This directory contains the platform-neutral adaptive workflow. BUILD,
 RESEARCH, and LEARN share a domain-neutral Core while defining different
@@ -11,6 +11,11 @@ by role and lifecycle, resolves context before placement, respects local
 conventions, protects canonical artifacts, and preserves source provenance.
 The full bounded policy and deferred validation protocol are in
 [`experiments/v2.5-artifact-lifecycle.md`](experiments/v2.5-artifact-lifecycle.md).
+
+V2.5.1 adds an experimental cross-domain policy for progressive context
+retrieval and compressed, single-owner workflow policy. Its runtime rules are
+in [`core/context.md`](core/context.md); validation and promotion criteria are
+in [`experiments/v2.5.1-context-retrieval.md`](experiments/v2.5.1-context-retrieval.md).
 
 V2.4's experimental interaction behavior remains inside the LEARN profile while
 retaining the V2.3 general architecture. It does not yet introduce a

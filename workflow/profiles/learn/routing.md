@@ -16,6 +16,10 @@ Providing an answer is not evidence of learning. Mastery must not be inferred
 solely from explanation history or a learner saying that they understand.
 Later retention is useful evidence when the interaction supports observing it.
 
+Retrieve only the learner state and prior concept knowledge relevant to the
+current objective; do not load unrelated learning history. See [Core context
+retrieval](../../core/context.md).
+
 ## Experimental interaction strategy
 
 V2.4 tests four lightweight interaction primitives inside LEARN:

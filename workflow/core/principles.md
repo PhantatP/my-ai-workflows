@@ -15,5 +15,6 @@
 13. Markdown is the canonical portable format for persistent workflow information.
 14. Persistent artifacts are classified by role and lifecycle, not workflow domain; sources remain distinct from synthesis, and assistant-generated material is not trusted Knowledge automatically.
 15. Do not automate complexity until real use demonstrates that it prevents failure or materially reduces effort.
+16. Retrieve the smallest sufficient working context; expand only when evidence, confidence, freshness, conflict, verification, safety, or an explicit request requires it.
 
 The optimization target is confidence per unit of cost and effort.

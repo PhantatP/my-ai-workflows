@@ -26,6 +26,10 @@ Understand
 → complete
 ```
 
+For repository context, apply [Core progressive retrieval](../../core/context.md):
+start with relevant state and changed paths, then inspect dependent code or
+broader repository areas only when uncertainty or verification requires it.
+
 For bugs, reproduce the failure and test the root-cause hypothesis before patching. Keep changes within requested scope and do not claim more than the verification exercised.
 
 ## Mechanical BUILD policy
