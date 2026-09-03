@@ -1,20 +1,11 @@
-# V2.3 core principles
+# Core principles
 
-1. Main owns task understanding, routing, integration, completion, and user communication.
-2. Use the least process, model capability, context, evidence, and coordination that supplies the required confidence.
-3. Assurance level, model capability, and agent count are independent decisions.
-4. Complexity affects structure, risk affects assurance, uncertainty affects exploration, and evidence requirements affect verification.
-5. BUILD, RESEARCH, and LEARN share one router but define correctness differently.
-6. Assistant work moves and preserves information; it is not a fourth correctness domain.
-7. Mechanical signals establish inspectable facts or minimum floors. Judgment handles meaning that brittle rules cannot represent reliably.
-8. Initial routing is provisional. New evidence may escalate or de-escalate the task or an individual domain segment.
-9. Independent verification must use a genuinely independent reasoning path. Repeating Main's summary is not verification.
-10. Escalate model capability before agent count when the problem is reasoning capacity rather than independence.
-11. Delegate only for identifiable value such as independent verification, context isolation, specialist capability, or separable work.
-12. Platform limitations and degraded assurance remain explicit; an advisory fallback is not mechanical enforcement.
-13. Markdown is the canonical portable format for persistent workflow information.
-14. Persistent artifacts are classified by role and lifecycle, not workflow domain; sources remain distinct from synthesis, and assistant-generated material is not trusted Knowledge automatically.
-15. Do not automate complexity until real use demonstrates that it prevents failure or materially reduces effort.
-16. Retrieve the smallest sufficient working context; expand only when evidence, confidence, freshness, conflict, verification, safety, or an explicit request requires it.
-
-The optimization target is confidence per unit of cost and effort.
+1. Main owns understanding, routing, integration, completion, and communication.
+2. Use the least process, capability, context, evidence, and coordination that provides required confidence.
+3. Assurance, model capability, and agent count are independent. Complexity drives structure; risk drives assurance; uncertainty drives exploration; evidence needs drive verification.
+4. BUILD, RESEARCH, and LEARN have different correctness contracts. Assistant work moves information; it is not a fourth domain.
+5. Mechanical signals establish facts or floors; judgment supplies meaning. New evidence can re-route a task or segment.
+6. Verification needs an independent reasoning path, not Main's repeated summary. Escalate model capability before agent count for reasoning limits; delegate only for identifiable value.
+7. State platform limits and degraded assurance; advisory mechanisms are not enforcement.
+8. Markdown is the portable persistent format. Classify artifacts by role and lifecycle; retain source/synthesis distinction and do not auto-promote assistant output to Knowledge.
+9. Automate complexity only when real use shows it prevents failure or materially reduces effort. Retrieve the smallest sufficient context; expand for evidence, correctness, safety, freshness, conflict, confidence, or explicit request.

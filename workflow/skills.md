@@ -15,6 +15,7 @@ These are hypotheses for measurement, not final removals.
 | `grill-me` | EXPERIMENT — Phase 4 validation | evaluate whether adaptive one-question-at-a-time challenge materially improves genuine work |
 | `test-backend`, `test-frontend` | KEEP — migrated | reusable verification methodology |
 | `scrutinize` | KEEP — migrated | useful falsification-oriented review method |
+| `policy-compression` | KEEP — V2.5 | losslessly reduces hot policy context without changing behavioral semantics |
 | `lint-check` | ON-DEMAND | tool-specific verification, not global routing |
 | `post-mortem` | ON-DEMAND | useful after meaningful incidents, not every bug |
 | `graphify` | ON-DEMAND | expensive exploration aid for unfamiliar systems |

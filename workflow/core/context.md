@@ -1,54 +1,22 @@
-# V2.5.1 — Context Retrieval and Policy Compression (experimental)
+# Context retrieval and policy compression
 
-This policy applies across BUILD, RESEARCH, LEARN, and Assistant information
-logistics. Persistent storage is not active context: retrieve the smallest
-working set that can support the current answer or action.
+Persistent storage is not active context. Start from task objective, constraints,
+output, candidate artifacts, and result-changing facts; retrieve progressively:
+metadata → smallest canonical state → relevant detail → original/large evidence.
+Use original sources only for verification, freshness, conflict, missing
+provenance/detail, or high-consequence decisions. Keep objective, constraints,
+decisions, open questions, canonical artifacts, evidence, and next action;
+reuse valid unchanged summaries and stop when more context cannot change the
+result, confidence, or verification. Correctness, safety, comprehensive
+requests, and required evidence override reduction. If missing context causes
+rework, expand and record the gap. Follow links/citations only for a
+task-specific reason.
 
-## Runtime rule
+Before durable writing, find canonical state then update, link, snapshot, or
+create under [information.md](information.md); discard irrelevant context.
 
-Start from the task. Identify the objective, constraints, required decision or
-output, likely relevant artifacts, and what could change the result. Retrieve
-progressively:
-
-```text
-Tier 0 metadata → Tier 1 canonical state → Tier 2 relevant detail → Tier 3 original evidence
-```
-
-- **Tier 0:** path, title, tags, role, lifecycle, timestamps, index entries, and
-  known links. Use it to select candidates.
-- **Tier 1:** the smallest canonical representation of current state.
-- **Tier 2:** only the needed section, function, claim, excerpt, or result.
-- **Tier 3:** original or large sources for verification, freshness, conflict,
-  missing provenance/detail, or high-consequence decisions.
-
-Maintain a compact working set: objective, constraints, decisions, open
-questions, canonical artifacts, required evidence, and immediate next action.
-Links and citations are candidates, not commands; follow them only for a
-task-specific reason. Reuse unchanged valid summaries and refresh stale claims
-selectively. Stop when more context is unlikely to change the answer, next
-action, confidence, or verification state.
-
-Correctness, safety, explicit comprehensive requests, and required evidence
-override context reduction. If missing context causes rework, expand retrieval
-and record the gap; do not optimize token counts at the expense of correctness.
-
-Before creating durable information, retrieve first: search for the canonical
-artifact, inspect its metadata/state, then update, link, snapshot, or create as
-required by [information.md](information.md). Do not retain irrelevant context
-after it stops contributing.
-
-## Policy compression rule
-
-Each behavioral invariant has one canonical home. Core contains universal
-rules; domain profiles contain correctness behavior; skills contain thin
-invocation behavior; adapters translate platform capability; experiments hold
-only experimental deltas and evidence; local rules remain local. Hot policy is
-concise. Rationale, history, and extended examples belong in cold documents.
-
-Compress duplication and prose, never safety boundaries, exceptions,
-escalation conditions, user-control rules, verification requirements, or stop
-conditions. Do not load unrelated profiles, historical experiments, unused
-skills, or adapters during routine work.
-
-See the [V2.5.1 experiment record](../experiments/v2.5.1-context-retrieval.md)
-for validation cases, measurements, and the promotion gate.
+Each invariant has one owner: Core universal rules, profiles domain correctness,
+skills invocation, adapters capability, experiments deltas/evidence, and local
+rules local. Compress prose and duplication, never safety, exceptions,
+escalation, user control, verification, or stop conditions. Do not load
+unrelated profiles, experiments, skills, or adapters in routine work.

@@ -1,23 +1,13 @@
 # Execution strategy
 
-Choose mechanisms only after classifying the task and selecting assurance.
-Available strategies include direct execution, a structured plan, targeted
-exploration, evidence gathering, staged work, automated checks, independent
-verification, rollback planning, and human approval.
+After routing, choose direct work, planning, exploration, evidence, staging,
+checks, independent verification, rollback, or approval as needed. Delegate
+only for independent verification, context isolation, specialist capability,
+separable exploration, or bounded cheaper execution; length, available agents,
+or role names do not justify it. Parallel work requires independent,
+non-overlapping benefit exceeding coordination cost.
 
-Delegation is justified only by identifiable value:
-
-- genuinely independent verification;
-- context isolation;
-- specialist capability;
-- useful parallel exploration of separable questions;
-- bounded execution suitable for a cheaper model.
-
-Length, available agents, or a named role are not reasons by themselves.
-Parallel execution is reserved for independent, non-overlapping work where its
-coordination cost is lower than its benefit.
-
-Irreversible or externally consequential actions require action-specific human
-approval where supported. Approval must be external to the proposing model,
-short-lived where appropriate, and logged without secrets. If the platform
-cannot provide the required control, report `DEGRADED` or `BLOCKED` assurance.
+Irreversible or externally consequential actions need action-specific human
+approval where supported; it must be external to the proposing model,
+short-lived where appropriate, and logged without secrets. If required control
+is unavailable, report `DEGRADED` or `BLOCKED`.

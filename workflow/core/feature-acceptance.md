@@ -1,23 +1,9 @@
 # Workflow feature acceptance
 
-Before making a feature part of the default workflow, answer:
-
-1. What failure does it prevent?
-2. What meaningful effort does it reduce?
-3. Is it Core, domain policy, model routing, information handling, or adapter behavior?
-4. Could Main perform the work adequately without it?
-5. Does it add ceremony to L0/L1 tasks?
-6. Does it require another agent unnecessarily?
-7. Could a stronger model solve the problem more cheaply?
-8. Could a cheaper model execute the bounded portion?
-9. Is it supported by actual usage evidence?
-10. What happens when it fails?
-11. Can assurance degradation be detected?
-12. Does persistent information remain human-readable?
-13. Does assistant-generated information remain distinguishable from curated Knowledge?
-14. Does it respect local placement conventions and existing canonical artifacts?
-15. Can source identity and material-claim provenance survive updates and transformations?
-16. Does it avoid unnecessary taxonomy and metadata ceremony?
-17. If removed, would the workflow meaningfully become worse?
-
-If the answer to the last question is no, keep the feature optional or omit it.
+Adopt a default feature only when it prevents a failure or reduces meaningful
+effort, has the correct owner (Core, profile, model, information, adapter),
+works better than Main alone, does not burden L0/L1 or require needless agents,
+uses capability economically, has real-use evidence, fails safely with
+detectable degradation, preserves readable/provenanced human information and
+local canonical placement, avoids taxonomy ceremony, and would make the
+workflow materially worse if removed. Otherwise keep it optional or omit it.

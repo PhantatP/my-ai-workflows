@@ -1,14 +1,13 @@
 # Codex adapter
 
-Codex is a primary surface for BUILD, serious RESEARCH, and structured LEARN work. `AGENTS.md` bootstraps the portable workflow; Core logic remains under `workflow/`.
+`AGENTS.md` bootstraps policy. Codex has no repository-local hook reliably
+intercepting every native write/command: intended scanning and
+`enforce-operation` are advisory caller obligations; explicit
+`scan-change-set` is the authoritative post-change backstop; native command
+denial is not platform-enforced. If pre-action blocking is required but absent,
+report `DEGRADED`.
 
-Codex does not currently provide a repository-local hook that reliably intercepts every native write or command. Therefore:
-
-- intended-path scanning and `enforce-operation` are advisory caller obligations;
-- `scan-change-set` is the authoritative post-change backstop when explicitly run;
-- command denial is not claimed as platform-enforced for native tool calls;
-- unavailable interception lowers assurance to `DEGRADED` when pre-action blocking is required.
-
-Model choice is session- or delegation-dependent. Map abstract capability classes through the active Codex configuration. Do not promise automatic mid-session switching unless the running surface exposes it. Role restrictions are delegation contracts because repository-local per-role sandboxing is not guaranteed.
-
-Use Markdown Task Packets for cross-platform handoff and persistent working state. Vault access is supported only when the user places a vault within accessible filesystem scope.
+Map abstract model classes through active configuration; do not promise
+unsupported automatic switching. Role restrictions are delegation contracts,
+not guaranteed per-role sandboxing. Use Task Packets for handoff/persistent
+working state; vault access requires user-scoped accessible filesystem.

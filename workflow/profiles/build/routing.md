@@ -1,60 +1,40 @@
 # BUILD profile
 
-## Objective and correctness contract
+## Correctness
 
-Produce a correct artifact or system change.
+Deliver a correct artifact or system change: artifact correctness, runtime/test
+evidence, actual-change inspection, and risk controls. Relevant evidence
+includes inspection, tests, runtime behavior, environment validation,
+independent review, and approval for irreversible actions.
 
-```text
-artifact correctness
-+ runtime or test evidence
-+ actual-change inspection
-+ risk controls
-```
+## Procedure
 
-Useful evidence includes static inspection, tests, runtime behavior, change-set review, environment validation, independent review, and user approval for irreversible actions.
+Inspect relevant state and execution path; scan intended paths; change; inspect
+and scan actual changes; verify behavior; re-evaluate risk. Apply [Core
+context](../../core/context.md) progressively. For bugs, reproduce failure and
+test the root-cause hypothesis before patching. Stay in scope and claim only
+what verification exercised.
 
-## Flow
+## Mechanical policy
 
-```text
-Understand
-→ inspect relevant state and execution path
-→ scan intended paths
-→ change
-→ inspect and scan the actual result
-→ verify behavior
-→ re-evaluate risk
-→ complete
-```
+[`../../routing/triggers.yaml`](../../routing/triggers.yaml), implemented by
+`workflow/enforcement/` and `workflow/bin/`, is canonical.
 
-For repository context, apply [Core progressive retrieval](../../core/context.md):
-start with relevant state and changed paths, then inspect dependent code or
-broader repository areas only when uncertainty or verification requires it.
+1. Scan intended paths before edits and actual changes after; record triggers, detector, evidence reference, and floor.
+2. A path trigger applies only when its path enters intended/actual changes; a command trigger applies when proposed. Exploration alone is not a path trigger. A new match raises the minimum level.
+3. Remove a floor only with an append-only trigger-disproof event containing trigger, detector, evidence reference and summary, and `disproved: true`.
+4. Run `enforce-operation` before external sensitive commands. Denial is fail-closed and Main cannot self-approve it.
 
-For bugs, reproduce the failure and test the root-cause hypothesis before patching. Keep changes within requested scope and do not claim more than the verification exercised.
+Authentication/authorization, secrets, schemas/migrations, dependencies, public
+interfaces, infrastructure, destructive operations, unexpected scope, and
+failed assumptions escalate. Levels add: L0 negligible non-behavioral/direct;
+L1 inspect/implement/verify; L2 explore or plan/implement/verify; L3 L2 plus
+independent read-only falsification review and relevant evidence; L4 staged
+checkpoints and multiple mechanisms. L4 parallel work is only for separable,
+independent questions. Before L0–L2 work and de-escalation, use the Core
+counterargument checkpoint; complexity de-escalation needs inspectable evidence
+and an audit event and never lowers a mechanical floor.
 
-## Mechanical BUILD policy
-
-The canonical policy remains [`../../routing/triggers.yaml`](../../routing/triggers.yaml), implemented by `workflow/enforcement/` and `workflow/bin/`.
-
-1. Scan intended paths before editing and the actual change set after editing.
-2. Record every trigger, detector, evidence reference, and resulting mechanical floor.
-3. A trigger applies only when a path enters the intended or actual change set, or when a matching command is proposed. Exploration alone is not a path trigger.
-4. A new match automatically raises the minimum assurance level.
-5. Removing a mechanical floor requires an append-only trigger-disproof event containing the trigger, detector, evidence reference, evidence summary, and `disproved: true`.
-6. Use `workflow/bin/enforce-operation` before external sensitive commands. A deny decision is fail-closed and cannot be self-approved by Main.
-
-Authentication, authorization, secrets, schemas, migrations, dependencies, public interfaces, infrastructure, destructive operations, unexpected scope, and failed assumptions are escalation signals.
-
-## BUILD levels
-
-- L0: direct answer or negligible non-behavioral change.
-- L1: inspect, implement, verify.
-- L2: explore or plan, implement, verify.
-- L3: L2 discipline plus independent falsification review and relevant tests or other evidence.
-- L4: staged high-consequence work with checkpoints and multiple assurance mechanisms; parallel investigation only for independent, separable questions.
-
-Before L0–L2 execution and before de-escalation, apply the Core counterargument checkpoint. Complexity-driven de-escalation needs inspectable evidence and an audit event. It cannot lower a mechanical floor.
-
-## Report
-
-Report initial and final level, mechanical floor and triggers, escalation/de-escalation or disproof events, independent-review requirement and completion, verification evidence, files changed, judgment risks, findings, assurance state, and remaining uncertainty.
+Report levels, floors/triggers, escalation/de-escalation/disproof, required and
+completed review, verification, changed files, risks/findings, assurance, and
+uncertainty.
