@@ -55,8 +55,6 @@ BUILD or RESEARCH interaction policy yet.
   and permission controls; role-level restrictions are delegation contracts.
 - Use parallel workers only at Level 4 and only for independent, separable
   questions.
-- `archive/v1/` contains Claude Code V1 inventory, retained for audit. It is
-  not Codex configuration and does not create mandatory workflow stages.
 - Use `workflow/bin/scan-triggers --platform codex` for intended BUILD paths
   and `workflow/bin/scan-change-set --platform codex` for the actual change
   set. Use `workflow/bin/enforce-operation --platform codex` before external

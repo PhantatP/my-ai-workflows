@@ -38,7 +38,6 @@ evidence belongs in
 ## Active skill placement
 
 The KEEP skills are in the repository-root `skills/` directory for Claude Code
-discovery. The rest remain in `archive/v1/skills/` until evidence justifies a
-different lifecycle decision. Codex uses the same methodologies through the
+discovery. Codex uses the same methodologies through the
 shared routing policy and direct task instructions; its active skill mechanism
 is platform-specific.

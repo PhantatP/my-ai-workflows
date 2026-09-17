@@ -21,8 +21,6 @@ see [`workflow/core/context.md`](workflow/core/context.md).
 - `skills/` — active V2.5 methodologies: adaptive routing, testing,
   independent falsification review, and experimental PLAN/GRILL interaction
   presets.
-- `archive/v1/` — remaining V1 inventory, clearly separate from the active
-  workflow and pending audit.
 
 See [`workflow/README.md`](workflow/README.md) for adoption and current scope.
 

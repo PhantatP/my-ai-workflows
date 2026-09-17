@@ -5,6 +5,5 @@ frontmatter is the enforceable local configuration for model selection and
 tool access.
 
 Use them only as directed by Core and the relevant domain profile; their existence does
-not create a fixed pipeline. The V1 definitions are preserved separately in
-`archive/v1/agents/`.
+not create a fixed pipeline.
 

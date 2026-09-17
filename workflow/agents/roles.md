@@ -13,7 +13,7 @@ do not map directly.
 Tool limits are restrictions, not unrelated authority. RESEARCH/LEARN are
 profiles, not roles; V2.4 primitives do not create a Tutor. Planning, testing,
 and debugging remain Main activities. Parallel agents are L4-only, separable,
-and non-overlapping. `archive/v1/agents/` is inactive inventory.
+and non-overlapping.
 
 Delegations state goal, bounded assignment, domain, level, evidence/diff,
 output, and non-goals. Persistent/cross-platform handoffs use a Task Packet.

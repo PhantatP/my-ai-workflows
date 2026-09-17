@@ -41,12 +41,10 @@ cross-domain interaction policy yet.
   must be genuinely separable.
 - The active Claude Code definitions are in `.claude/agents/`; their model and
   allowed-tool frontmatter enforce the Explorer, Implementer, and Reviewer
-  boundaries. Do not replace these with the archived V1 definitions.
+  boundaries.
 - Pass an independent reviewer the task intent, changed-file list/diff, relevant
   evidence, and the instruction to falsify correctness. The reviewer must not
   edit the implementation.
-- `archive/v1/` contains legacy Claude Code inventory for audit only. It is not
-  part of normal routing and does not create mandatory workflow stages.
 - Active reusable methodologies are in `skills/`. Load one only when it is
   relevant to the selected workflow level and task; they are not fixed stages.
 - Scan intended BUILD paths with `workflow/bin/scan-triggers --platform
