@@ -11,7 +11,8 @@ achieve the required confidence.
 
 ## Route the task
 
-1. Read `workflow/core/principles.md`, `routing.md`, and `assurance.md`.
+1. Read `workflow/core/principles.md`, `workflow/core/routing.md`, and
+   `workflow/core/assurance.md`.
 2. Segment the task into BUILD, RESEARCH, and LEARN; treat Assistant capture,
    retrieval, organization, and handoff as information logistics.
 3. Assess complexity, risk, uncertainty, evidence requirement, and

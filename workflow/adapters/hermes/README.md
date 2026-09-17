@@ -13,4 +13,4 @@ Initial operating contract:
 4. State capability limitations and resulting assurance degradation.
 5. Expand into serious LEARN, RESEARCH, or BUILD only after actual platform capability and usage justify it.
 
-Future Hermes integration should update `capabilities.yaml` from demonstrated behavior, not expectation.
+Future Hermes integration should update `workflow/adapters/capabilities.yaml` from demonstrated behavior, not expectation.
