@@ -39,27 +39,63 @@ def path_matches(pattern: str, value: str) -> bool:
     return pattern.startswith("**/") and fnmatch.fnmatchcase(path, pattern[3:])
 
 
+def _prefix(word: str) -> str:
+    """Regex source matching any leading abbreviation of `word`.
+
+    PowerShell accepts any unambiguous parameter prefix, so `-Recurse` is also
+    spellable `-Rec`, `-Recu`, or `-r`.
+    """
+    pattern = ""
+    for char in reversed(word[1:]):
+        pattern = f"(?:{char}{pattern})?"
+    return word[0] + pattern
+
+
 COMMAND_SIGNATURES = {
     # Nested evaluation hides executable commands. A newline, an ordinary
     # interpreter invocation, and environment assignment are scanned normally.
-    "shell_evaluated_command": re.compile(r"\$\(|`|<\(|^\s*eval\b|^\s*(?:sh|bash|zsh|powershell|pwsh)\s+[^\n]*-[A-Za-z]*c\b", re.I),
+    # `-[A-Za-z]*c\b` alone missed PowerShell's spelled-out -Command, whose
+    # trailing letters defeat the word boundary. -EncodedCommand matches the
+    # same branch, so no separate `-e` alternative is needed; adding one would
+    # deny ordinary `bash -e script.sh`.
+    "shell_evaluated_command": re.compile(
+        r"\$\(|`|<\(|^\s*eval\b"
+        r"|^\s*(?:invoke-expression|iex)\b"
+        r"|^\s*(?:sh|bash|zsh|powershell|pwsh)\s+[^\n]*-[A-Za-z]*c(?:ommand)?\b",
+        re.I,
+    ),
     "rm_recursive_force": re.compile(r"^\s*rm(?=[^\n]*\s-[A-Za-z]*r)(?=[^\n]*\s-[A-Za-z]*f)|^\s*rm(?=[^\n]*\s--recursive\b)(?=[^\n]*\s--force\b)", re.I),
     "git_push_force": re.compile(r"^\s*git\s+(?:-[^\s]+\s+\S+\s+)*push\s+(?:(?:--force|-f)\b|[^\n]*\s(?:--force|-f)\b)", re.I),
     "terraform_destroy": re.compile(r"^\s*terraform\s+destroy\b", re.I),
     "kubectl_delete": re.compile(r"^\s*kubectl\s+delete\s+(?:deployment|deployments)\b", re.I),
     "sql_drop_table": re.compile(r"^\s*drop\s+table\b", re.I),
     "sql_truncate_table": re.compile(r"^\s*truncate\s+(?:table\s+)?\w", re.I),
+    # PowerShell-native equivalents. The POSIX signatures above are anchored on
+    # `rm`/`git`/`kubectl` and match none of these.
+    # `/s`, `/q`, `/f` cover the cmd.exe builtin spellings of rd and del.
+    "powershell_remove_item": re.compile(
+        r"^\s*(?:remove-item|ri|rd|rmdir|del|erase)\b"
+        rf"(?=[^\n]*(?:\s-{_prefix('recurse')}\b|\s/s\b))"
+        rf"(?=[^\n]*(?:\s-{_prefix('force')}\b|\s-{_prefix('confirm')}:\s*\$false|\s/[qf]\b))",
+        re.I,
+    ),
+    "powershell_destructive_storage": re.compile(r"^\s*(?:format-volume|clear-disk|initialize-disk)\b", re.I),
     "terraform_apply": re.compile(r"^\s*terraform\s+apply\b", re.I),
     "kubectl_apply": re.compile(r"^\s*kubectl\s+apply\b", re.I),
     "helm_upgrade": re.compile(r"^\s*helm\s+upgrade\b", re.I),
 }
 
 
-def command_segments(command: str) -> list[str]:
+def command_segments(command: str, honour_escapes: bool = True) -> list[str]:
     """Split unquoted common Bash command-list separators.
 
     This tiny lexer deliberately recognizes only quotes, escapes, and list
     separators; it is not an attempt to parse shell grammar.
+
+    With `honour_escapes=False` a backslash is an ordinary character. No single
+    reading is safe on both platforms: honouring `\\` lets a Windows path like
+    `cd C:\\Temp\\; rm -rf /x` swallow the `;`, while ignoring it lets `echo \\"`
+    open a quote that swallows the same `;`. `scan` takes the union of both.
     """
     segments: list[str] = []
     start = 0
@@ -70,7 +106,7 @@ def command_segments(command: str) -> list[str]:
         char = command[index]
         if escaped:
             escaped = False
-        elif char == "\\" and quote != "'":
+        elif char == "\\" and honour_escapes and quote != "'":
             escaped = True
         elif quote:
             if char == quote:
@@ -112,6 +148,13 @@ def executable_segment(segment: str) -> str:
         return segment
 
     while tokens:
+        # PowerShell call operator, spaced (`& "rm" -rf /x`) or not (`&"rm"`).
+        if tokens[0] == "&":
+            tokens.pop(0)
+            continue
+        if tokens[0].startswith("&"):
+            tokens[0] = tokens[0][1:]
+            continue
         wrapper = tokens[0].lower()
         if wrapper in {"command", "nice"}:
             tokens.pop(0)
@@ -157,6 +200,7 @@ def scan(paths: Iterable[str] = (), command: str | None = None, policy_path: Pat
                     matches.append({"id": trigger["id"], "source": "path", "evidence": path, "minimum_level": trigger["minimum_level"]})
         elif command is not None and trigger["source"] == "command":
             segments = command_segments(command)
+            segments += [item for item in command_segments(command, honour_escapes=False) if item not in segments]
             for segment in segments:
                 candidate = executable_segment(segment)
                 for signature in trigger["signatures"]:

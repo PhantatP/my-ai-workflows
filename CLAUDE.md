@@ -53,8 +53,11 @@ cross-domain interaction policy yet.
   claude_code` and use `workflow/bin/scan-change-set --platform claude_code`
   for the authoritative actual change set. Call `workflow/bin/enforce-operation
   --platform claude_code` before external sensitive commands;
-  a denial is fail-closed. The mechanism writes append-only events to
-  `.workflow/log.txt`.
+  a denial is fail-closed. The mechanism appends events to `.workflow/log.txt`
+  under the hook's own root: the repo hook logs to `<repo>/.workflow/log.txt`,
+  the global `~/.claude` hook to `~/.claude/.workflow/log.txt`. The log is a
+  plain text append with no tamper evidence; it is an operational record, not
+  proof of enforcement.
 
 ## Core coding constraints
 

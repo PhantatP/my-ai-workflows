@@ -54,7 +54,7 @@
     {
       "id": "destructive_operation",
       "source": "command",
-      "signatures": ["rm_recursive_force", "git_push_force", "terraform_destroy", "kubectl_delete", "sql_drop_table", "sql_truncate_table"],
+      "signatures": ["rm_recursive_force", "git_push_force", "terraform_destroy", "kubectl_delete", "sql_drop_table", "sql_truncate_table", "powershell_remove_item", "powershell_destructive_storage"],
       "minimum_level": 3,
       "rationale": "destructive_or_external_state_operation"
     },

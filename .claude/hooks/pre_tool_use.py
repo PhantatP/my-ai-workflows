@@ -46,7 +46,7 @@ def main() -> None:
         append_log(ROOT, "L?", "DENIED: malformed hook payload", reason="tool_input_not_an_object", action="validate_hook_payload", result="deny", assurance_state="DEGRADED", platform="claude_code")
         deny("Blocked by workflow enforcement: malformed hook payload. See .workflow/log.txt.")
 
-    if tool_name == "Bash":
+    if tool_name in ("Bash", "PowerShell"):
         command = tool_input.get("command")
         if command is not None and not isinstance(command, str):
             append_log(ROOT, "L?", "DENIED: malformed hook payload", reason="command_not_a_string", action="validate_hook_payload", result="deny", assurance_state="DEGRADED", platform="claude_code")
