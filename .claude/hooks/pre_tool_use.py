@@ -41,20 +41,22 @@ def main() -> None:
         deny("Blocked by workflow enforcement: malformed hook payload. See .workflow/log.txt.")
 
     tool_name = payload.get("tool_name")
+    # Correlates every event from one session; without it the log cannot be read back.
+    session = str(payload.get("session_id") or "-")
     tool_input = payload.get("tool_input") or {}
     if not isinstance(tool_input, dict):
-        append_log(ROOT, "L?", "DENIED: malformed hook payload", reason="tool_input_not_an_object", action="validate_hook_payload", result="deny", assurance_state="DEGRADED", platform="claude_code")
+        append_log(ROOT, "L?", "DENIED: malformed hook payload", reason="tool_input_not_an_object", action="validate_hook_payload", result="deny", assurance_state="DEGRADED", platform="claude_code", session=session)
         deny("Blocked by workflow enforcement: malformed hook payload. See .workflow/log.txt.")
 
     if tool_name in ("Bash", "PowerShell"):
         command = tool_input.get("command")
         if command is not None and not isinstance(command, str):
-            append_log(ROOT, "L?", "DENIED: malformed hook payload", reason="command_not_a_string", action="validate_hook_payload", result="deny", assurance_state="DEGRADED", platform="claude_code")
+            append_log(ROOT, "L?", "DENIED: malformed hook payload", reason="command_not_a_string", action="validate_hook_payload", result="deny", assurance_state="DEGRADED", platform="claude_code", session=session)
             deny("Blocked by workflow enforcement: malformed hook payload. See .workflow/log.txt.")
         if not command:
             raise SystemExit(0)
         result = subprocess.run(
-            [sys.executable, str(ENFORCE), "--command", command, "--log-root", str(ROOT), "--platform", "claude_code"],
+            [sys.executable, str(ENFORCE), "--command", command, "--log-root", str(ROOT), "--platform", "claude_code", "--session", session],
             capture_output=True,
             text=True,
         )
@@ -79,7 +81,7 @@ def main() -> None:
         except ValueError:
             rel = path.replace("\\", "/")
         result = subprocess.run(
-            [sys.executable, str(SCAN), "--intended-path", rel, "--log-root", str(ROOT), "--platform", "claude_code"],
+            [sys.executable, str(SCAN), "--intended-path", rel, "--log-root", str(ROOT), "--platform", "claude_code", "--session", session],
             capture_output=True,
             text=True,
         )
@@ -92,6 +94,7 @@ def main() -> None:
                 result="scanner_failure",
                 assurance_state="DEGRADED",
                 platform="claude_code",
+                session=session,
             )
         # Path triggers only raise the mechanical floor for Main's routing;
         # they do not block the write (workflow/profiles/build/routing.md).

@@ -223,22 +223,22 @@ def append_log(
     root: Path,
     level: str,
     event: str,
-    review: str = "-",
-    elapsed: str = "-",
     *,
     platform: str = "unknown",
     session: str = "-",
     domain: str = "BUILD",
-    level_before: str = "-",
-    level_after: str | None = None,
     reason: str = "-",
-    model_before: str = "-",
-    model_after: str = "-",
     action: str = "-",
     result: str = "recorded",
     assurance_state: str = "NORMAL",
 ) -> None:
-    """Append a V2.3 routing event without unnecessary raw user content."""
+    """Append a routing event without unnecessary raw user content.
+
+    Every field here is one some mechanism actually fills. `model_before`,
+    `model_after`, `review`, `elapsed`, and `level_before` were dropped: only
+    Main could supply them, Main never did, and thirty log entries of `-`
+    columns obscure the fields that do carry information.
+    """
     log = root / ".workflow" / "log.txt"
     log.parent.mkdir(parents=True, exist_ok=True)
     fields = {
@@ -246,17 +246,12 @@ def append_log(
         "platform": platform,
         "session": session,
         "domain": domain,
-        "level_before": level_before,
-        "level_after": level_after or level,
+        "level": level,
         "reason": reason,
-        "model_before": model_before,
-        "model_after": model_after,
         "action": action,
         "result": result,
         "assurance_state": assurance_state,
         "event": event,
-        "review": review,
-        "elapsed": elapsed,
     }
     with log.open("a", encoding="utf-8") as handle:
         handle.write(" | ".join(f"{key}={_log_value(value)}" for key, value in fields.items()) + "\n")

@@ -17,6 +17,7 @@ parser.add_argument("--command")
 parser.add_argument("--policy", type=Path)
 parser.add_argument("--log-root", type=Path)
 parser.add_argument("--platform", default="unknown")
+parser.add_argument("--session", default="-")
 args = parser.parse_args()
 try:
     result = scan([*args.intended_path, *args.actual_path], args.command, args.policy) if args.policy else scan([*args.intended_path, *args.actual_path], args.command)
@@ -25,7 +26,7 @@ try:
             # Paths are useful audit evidence. Raw command segments may contain
             # secrets, so command events retain only the matched signature.
             evidence = item["evidence"] if item["source"] == "path" else item.get("signature", "command")
-            append_log(args.log_root, f"L{item['minimum_level']}", f"trigger: {item['id']}({evidence})", platform=args.platform)
+            append_log(args.log_root, f"L{item['minimum_level']}", f"trigger: {item['id']}({evidence})", platform=args.platform, session=args.session)
     print(json.dumps(result, sort_keys=True))
 except Exception as error:
     print(json.dumps({"error": str(error)}), file=sys.stderr)

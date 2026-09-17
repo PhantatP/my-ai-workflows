@@ -21,6 +21,7 @@ parser.add_argument("--command", required=True)
 parser.add_argument("--scanner", default=str(Path(__file__).with_name("scan-triggers")))
 parser.add_argument("--log-root", type=Path, default=Path.cwd())
 parser.add_argument("--platform", default="unknown")
+parser.add_argument("--session", default="-")
 args = parser.parse_args()
 
 try:
@@ -42,6 +43,7 @@ except Exception as error:
         result="deny",
         assurance_state="DEGRADED",
         platform=args.platform,
+        session=args.session,
     )
     print(json.dumps({"decision": "deny", "reason": "scanner_failure"}))
     raise SystemExit(3)
@@ -60,6 +62,7 @@ append_log(
     action="sensitive_command",
     result="deny",
     platform=args.platform,
+    session=args.session,
 )
 print(json.dumps({"decision": "deny", "reason": reason, "mechanical_floor": result["mechanical_floor"]}))
 raise SystemExit(2)

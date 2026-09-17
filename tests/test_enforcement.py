@@ -122,8 +122,19 @@ def test_operational_log_contains_v23_routing_fields(tmp_path):
     log = (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
     assert "platform=unknown" in log
     assert "domain=BUILD" in log
-    assert "level_after=L3" in log
+    assert "level=L3" in log
     assert "assurance_state=NORMAL" in log
+
+def test_log_records_session_so_events_can_be_correlated(tmp_path):
+    result = subprocess.run([sys.executable, ENFORCER, "--command", "terraform destroy", "--log-root", tmp_path, "--session", "abc123"], capture_output=True, text=True)
+    assert result.returncode == 2
+    assert "session=abc123" in (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
+
+def test_log_omits_fields_no_mechanism_populates(tmp_path):
+    subprocess.run([sys.executable, ENFORCER, "--command", "terraform destroy", "--log-root", tmp_path], capture_output=True, text=True)
+    log = (tmp_path / ".workflow" / "log.txt").read_text(encoding="utf-8")
+    for dead in ("model_before=", "model_after=", "review=", "elapsed=", "level_before="):
+        assert dead not in log
 
 def test_sensitive_command_log_does_not_store_raw_command_or_secret(tmp_path):
     command = "terraform destroy --token TOPSECRET"
