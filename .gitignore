@@ -1,4 +1,5 @@
 .workflow/
+.myai/
 __pycache__/
 .pytest_cache/
 experiments/

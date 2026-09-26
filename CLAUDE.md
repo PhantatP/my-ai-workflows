@@ -29,8 +29,8 @@ Apply the relevant domain correctness contract and re-evaluate on new evidence.
 Persistent writes follow `workflow/core/information.md`: classify role and
 lifecycle, resolve context, respect local conventions and canonical artifacts,
 and preserve provenance. Assistant material is not knowledge merely because it
-is polished. At session start, load the user profile Summary and project state
-per [`workflow/core/context.md`](workflow/core/context.md).
+is polished. At session start, load the user profile Summary and project state, and
+keep project state current, per [`workflow/core/context.md`](workflow/core/context.md).
 For LEARN, apply the interaction strategy in the LEARN profile and
 keep workflow metadata internal by default; do not generalize it into a
 cross-domain interaction policy yet.

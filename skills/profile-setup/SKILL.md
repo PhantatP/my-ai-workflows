@@ -1,6 +1,6 @@
 ---
 name: profile-setup
-description: Create or refresh the portable user profile (~/.ai/USER_PROFILE.md) through a short interview so every AI platform knows who the user is and what they are doing. Use when no profile exists and substantial work begins, or when the user asks to set up, review, or refresh their profile.
+description: Create or refresh the portable user profile (~/.myai/USER_PROFILE.md) through a short interview so every AI platform knows who the user is and what they are doing. Use when no profile exists and substantial work begins, or when the user asks to set up, review, or refresh their profile.
 ---
 
 # Profile setup interview
@@ -31,7 +31,7 @@ answer. Skip a round the draft already answers; stop early if the user wants.
 
 ## Finish
 
-Write `~/.ai/USER_PROFILE.md` from the template, leaving unanswered sections
+Write `~/.myai/USER_PROFILE.md` from the template, leaving unanswered sections
 empty and uncertain items under Unconfirmed. Show the Summary and ask for
 corrections once. When refreshing, keep valid content and replace only what the
 user changes.

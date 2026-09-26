@@ -14,7 +14,7 @@ must trace to evidence; polish alone never promotes Knowledge. Before rereading
 large sources, check canonical representation and change state; retrieve
 metadata/canonical state before detail/evidence under [context.md](context.md).
 
-The user profile (`~/.ai/USER_PROFILE.md`, living `reference` outside any
+The user profile (`~/.myai/USER_PROFILE.md`, living `reference` outside any
 repository, from the [template](../templates/user-profile.md)) records who the
 user is and what they are doing: background, expertise, current work, goals,
 stated working preferences, constraints, and closed decisions. Agents update it
@@ -25,11 +25,13 @@ or student IDs; addresses; phone numbers; account, card, or financial details;
 credentials; health), third parties' private information, or inferred
 personality, psychology, or health.
 
-Project state (`<project>/.ai/STATE.md`, living `working` artifact, from the
+Project state (`<project>/.myai/STATE.md`, living `working` artifact, from the
 [template](../templates/project-state.md)) records objective, where work left
-off, next actions, and open and closed decisions; update it after milestones,
-decisions, and substantial sessions, holding only what code, docs, and history
-do not show. Follow local rules on committing it. Platform-native memory keeps
+off, next actions, and open and closed decisions. Create it when missing and
+update it without asking after each meaningful change to progress, next
+actions, or decisions (not every edit), naming the update in the reply; hold
+only what code, docs, and history do not show. Always keep `<project>/.myai/`
+out of version control by listing it in the project's `.gitignore`. Platform-native memory keeps
 only platform-specific behavior; facts about the user or project go in these
 portable files.
 

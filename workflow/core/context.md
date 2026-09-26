@@ -13,11 +13,14 @@ rework, expand and record the gap. Follow links/citations only for a
 task-specific reason.
 
 At session start, read the Summary of the user profile
-(`~/.ai/USER_PROFILE.md`) and the project's `<project>/.ai/STATE.md` when they
+(`~/.myai/USER_PROFILE.md`) and the project's `<project>/.myai/STATE.md` when they
 exist; open other profile sections only when the task needs them. Closed
 decisions stay closed unless a new material fact appears. With no profile,
 offer the `profile-setup` interview before substantial work; if declined,
 create the file with an empty Summary so later sessions do not ask again.
+During work, keep project state current without being asked: create it when
+missing and update it after each meaningful change, under
+[information.md](information.md).
 
 Prefer deterministic tools to model perception when they give an equal or
 better result: extract a PDF's text layer (`pdftotext`, PyMuPDF) rather than

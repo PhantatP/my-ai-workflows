@@ -46,8 +46,8 @@ artifact's role and lifecycle, resolve its strongest context, follow existing
 local conventions, check for a canonical artifact, choose create, update,
 snapshot, or no-overwrite behavior, and preserve source provenance. Do not
 promote polished assistant output to knowledge automatically. Use Markdown Task
-Packets for portable handoff. At session start, load the user profile Summary
-and project state per `workflow/core/context.md`.
+Packets for portable handoff. At session start, load the user profile Summary and project state, and
+keep project state current, per `workflow/core/context.md`.
 
 ## Report
 
