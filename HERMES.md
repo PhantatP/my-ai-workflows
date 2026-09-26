@@ -18,7 +18,9 @@ preparation, and dispatch as information logistics rather than a fourth domain.
 For persistent writes, classify artifact role and lifecycle, resolve context,
 respect local conventions and canonical artifacts, and preserve provenance.
 Route uncertain captures to Inbox and do not promote assistant-generated
-content into trusted Knowledge automatically.
+content into trusted Knowledge automatically. At session start, load the user
+profile Summary and project state per
+[`workflow/core/context.md`](workflow/core/context.md).
 
 Use a Markdown Task Packet when handing serious work to Codex, Claude Code, or
 another surface. State unsupported capabilities and degraded assurance

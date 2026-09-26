@@ -6,4 +6,6 @@ For Bash, the hook invokes `workflow/bin/enforce-operation` and blocks on sensit
 
 `.claude/agents/` contains optional role definitions and provider-specific model mappings. Their existence does not create a fixed pipeline. Main selects them only when delegation adds identifiable value.
 
+Claude Code auto-memory (`~/.claude/projects/<project>/memory/`) loads every session but is invisible to other platforms. Keep it to Claude-specific behavior; facts about the user or project belong in the portable profile and project state under [information.md](../../core/information.md).
+
 Human approval for an override is not implemented by the shared guard. If a future adapter adds one, approval must be external to the proposing model, specific, short-lived, and logged without secrets.

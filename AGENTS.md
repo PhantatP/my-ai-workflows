@@ -38,6 +38,8 @@ For persistent writes, apply the V2.5 Artifact Lifecycle policy in
 [`workflow/core/information.md`](workflow/core/information.md): classify role
 and lifecycle, resolve context, follow local conventions, check canonical
 artifacts, choose create/update/snapshot behavior, and preserve provenance.
+At session start, load the user profile Summary and project state per
+[`workflow/core/context.md`](workflow/core/context.md).
 
 For LEARN, apply the experimental interaction strategy in the LEARN profile.
 Keep simple questions direct, prefer one meaningful cognitive task per learner

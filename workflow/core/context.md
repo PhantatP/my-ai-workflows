@@ -12,6 +12,23 @@ requests, and required evidence override reduction. If missing context causes
 rework, expand and record the gap. Follow links/citations only for a
 task-specific reason.
 
+At session start, read the Summary of the user profile
+(`~/.ai/USER_PROFILE.md`) and the project's `<project>/.ai/STATE.md` when they
+exist; open other profile sections only when the task needs them. Closed
+decisions stay closed unless a new material fact appears. With no profile,
+offer the `profile-setup` interview before substantial work; if declined,
+create the file with an empty Summary so later sessions do not ask again.
+
+Prefer deterministic tools to model perception when they give an equal or
+better result: extract a PDF's text layer (`pdftotext`, PyMuPDF) rather than
+reading rendered pages, parse structured data with a parser or query tool, and
+compute rather than estimate. Extract only the needed scope and keep reusable
+extractions with source, locator, and tool as derived representations under
+[information.md](information.md), so later sessions reuse rather than re-read.
+Without a usable text layer, tell the user before OCR; approved OCR tries
+Tesseract before model-based reading. Use model perception when layout,
+figures, or visual meaning matter or tool output is inadequate.
+
 Before durable writing, find canonical state then update, link, snapshot, or
 create under [information.md](information.md); discard irrelevant context.
 

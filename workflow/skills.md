@@ -16,6 +16,7 @@ These are hypotheses for measurement, not final removals.
 | `test-backend`, `test-frontend` | KEEP — migrated | reusable verification methodology |
 | `scrutinize` | KEEP — migrated | useful falsification-oriented review method |
 | `policy-compression` | KEEP — V2.5 | losslessly reduces hot policy context without changing behavioral semantics |
+| `profile-setup` | EXPERIMENT — V2.5 | evaluate whether a short setup interview gives every platform enough user context to reduce repeated explanation |
 | `lint-check` | ON-DEMAND | tool-specific verification, not global routing |
 | `post-mortem` | ON-DEMAND | useful after meaningful incidents, not every bug |
 | `graphify` | ON-DEMAND | expensive exploration aid for unfamiliar systems |

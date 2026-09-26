@@ -11,3 +11,6 @@ Map abstract model classes through active configuration; do not promise
 unsupported automatic switching. Role restrictions are delegation contracts,
 not guaranteed per-role sandboxing. Use Task Packets for handoff/persistent
 working state; vault access requires user-scoped accessible filesystem.
+Codex memories are Codex-only; facts about the user or project belong in the
+portable profile and project state under
+[information.md](../../core/information.md).
