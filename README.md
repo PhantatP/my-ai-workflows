@@ -1,7 +1,7 @@
 # My AI Workflows
 
-Portable adaptive workflow configuration for Codex, Claude Code, Hermes, and
-future execution surfaces. V2.5 adds an experimental cross-domain artifact
+Portable adaptive workflow configuration for Codex, Claude Code, Hermes,
+Antigravity, and future execution surfaces. V2.5 adds an experimental cross-domain artifact
 lifecycle and provenance policy while retaining V2.4's LEARN interaction and
 the V2.3 general architecture, separation of assurance from
 model routing, portable Markdown information conventions, and deterministic
@@ -15,7 +15,8 @@ see [`workflow/core/context.md`](workflow/core/context.md).
 - `workflow/` — domain-neutral Core, three domain profiles, executable BUILD
   enforcement, platform adapters, information templates, roles, and skill audit.
 - `CLAUDE.md` — thin Claude Code adapter for the shared policy.
-- `AGENTS.md` — thin Codex adapter for the shared policy.
+- `AGENTS.md` — thin Codex adapter for the shared policy; Antigravity loads it
+  with overrides in `.agents/rules/antigravity.md`.
 - `HERMES.md` — thin Hermes adapter emphasizing information trust and honest
   capability degradation.
 - `skills/` — active V2.5 methodologies: adaptive routing, testing,

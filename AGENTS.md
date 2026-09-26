@@ -1,5 +1,8 @@
 # My AI Workflows — Codex adapter
 
+Antigravity also loads this file; its overrides are in
+[`.agents/rules/antigravity.md`](.agents/rules/antigravity.md).
+
 This repository implements My AI Workflows V2.5 experimentally while retaining
 the V2.3 general architecture. The platform-neutral policy lives in
 [`workflow/`](workflow/README.md); this is the Codex entry point.

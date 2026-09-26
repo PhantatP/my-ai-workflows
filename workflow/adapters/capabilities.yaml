@@ -2,13 +2,13 @@ version: 1
 values: [ENFORCED, SUPPORTED, ADVISORY, UNAVAILABLE]
 platforms:
   codex:
-    pre_action_hook: UNAVAILABLE
+    pre_action_hook: ADVISORY
     post_action_hook: ADVISORY
     command_blocking: ADVISORY
     file_change_detection: SUPPORTED
     subagents: SUPPORTED
     model_switching: ADVISORY
-    persistent_memory: UNAVAILABLE
+    persistent_memory: ADVISORY
     skills: SUPPORTED
     filesystem: SUPPORTED
     web: SUPPORTED
@@ -22,7 +22,7 @@ platforms:
     file_change_detection: SUPPORTED
     subagents: SUPPORTED
     model_switching: SUPPORTED
-    persistent_memory: UNAVAILABLE
+    persistent_memory: SUPPORTED
     skills: SUPPORTED
     filesystem: SUPPORTED
     web: SUPPORTED
@@ -30,16 +30,30 @@ platforms:
     background_execution: ADVISORY
     human_approval: ADVISORY
   hermes:
-    pre_action_hook: UNAVAILABLE
-    post_action_hook: UNAVAILABLE
-    command_blocking: UNAVAILABLE
+    pre_action_hook: ADVISORY
+    post_action_hook: ADVISORY
+    command_blocking: ADVISORY
     file_change_detection: UNAVAILABLE
-    subagents: UNAVAILABLE
-    model_switching: UNAVAILABLE
+    subagents: ADVISORY
+    model_switching: ADVISORY
     persistent_memory: ADVISORY
     skills: ADVISORY
     filesystem: ADVISORY
     web: ADVISORY
     session_resume: ADVISORY
     background_execution: UNAVAILABLE
+    human_approval: ADVISORY
+  antigravity:
+    pre_action_hook: ADVISORY
+    post_action_hook: ADVISORY
+    command_blocking: ADVISORY
+    file_change_detection: ADVISORY
+    subagents: ADVISORY
+    model_switching: ADVISORY
+    persistent_memory: ADVISORY
+    skills: ADVISORY
+    filesystem: SUPPORTED
+    web: ADVISORY
+    session_resume: ADVISORY
+    background_execution: ADVISORY
     human_approval: ADVISORY

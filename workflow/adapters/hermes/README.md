@@ -2,7 +2,7 @@
 
 Hermes is a flexible execution surface, not a lightweight-only role. Initial use may include Assistant capture and retrieval, note preparation, organization, lightweight RESEARCH, and Task Packet generation.
 
-This repository has not validated Hermes hooks, command blocking, subagents, automatic model switching, or filesystem semantics. Those capabilities remain `UNAVAILABLE` or `ADVISORY` in the declaration rather than being simulated.
+Hermes here is Nous Research's Hermes Agent. It documents event hooks that can block tool calls, `delegate_task` subagents, provider switching, persistent memory, and skills. None is installed or validated on this machine, so they stay `ADVISORY`; file-change detection stays `UNAVAILABLE`.
 
 Initial operating contract:
 
