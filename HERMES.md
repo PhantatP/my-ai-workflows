@@ -1,7 +1,7 @@
 # My AI Workflows — Hermes adapter
 
-This repository implements My AI Workflows V2.5 experimentally while retaining
-the V2.3 general architecture. The portable workflow lives in
+This repository implements My AI Workflows V2.5.2 while retaining the V2.3
+general architecture. The portable workflow lives in
 [`workflow/`](workflow/README.md); this is the Hermes entry point.
 
 ## Required reading order
@@ -33,6 +33,6 @@ capabilities and real use justify it. For BUILD, use deterministic trigger and
 command enforcement only if the active environment can actually invoke the
 shared tools; otherwise hand off or report degraded assurance.
 
-For LEARN, apply the experimental interaction strategy in the LEARN profile,
+For LEARN, apply the interaction strategy in the LEARN profile,
 respect explicit interaction preferences, and keep workflow metadata internal
 by default. This behavior has not been promoted into cross-domain Core policy.

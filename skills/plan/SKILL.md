@@ -5,7 +5,7 @@ description: Create or refine an actionable plan through a lightweight interacti
 
 # PLAN interaction preset
 
-PLAN is an experimental V2.4 interaction preset, not a domain, assurance level,
+PLAN is a V2.4 interaction preset, not a domain, assurance level,
 model tier, agent role, or state machine.
 
 Apply the existing Core router and the relevant BUILD, RESEARCH, or LEARN
@@ -51,7 +51,7 @@ performing the whole analysis.
 
 Keep domain labels, assurance levels, preset names, routing rationale, and other
 workflow metadata out of the user-facing plan unless the user asks to inspect
-the experiment.
+the workflow.
 
 Avoid planning theater, generic interviews, premature structure, irrelevant
 risk dumping, and plan paralysis.

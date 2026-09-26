@@ -1,11 +1,11 @@
-# Codex V2.5 experimental adapter notes
+# Codex V2.5.2 adapter notes
 
 Codex loads repository instructions from `AGENTS.md`. Core policy, domain
 profiles, model routing, and information conventions remain in `workflow/`;
 this file documents session-level limitations only.
 
-V2.5 retains the V2.3 general architecture and V2.4 LEARN-profile interaction
-experiment, and adds the cross-domain Artifact Lifecycle experiment. It does
+V2.5.2 retains the V2.3 general architecture, the V2.4 LEARN-profile
+interaction strategy, and the cross-domain Artifact Lifecycle policy. It does
 not add a cross-domain Interaction Layer.
 
 The portable role restrictions are defined in

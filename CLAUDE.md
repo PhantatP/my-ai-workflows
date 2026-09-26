@@ -1,7 +1,7 @@
 # My AI Workflows — Claude Code adapter
 
-This repository implements My AI Workflows V2.5 experimentally while retaining
-the V2.3 general architecture. The shared workflow policy is platform-neutral
+This repository implements My AI Workflows V2.5.2 while retaining the V2.3
+general architecture. The shared workflow policy is platform-neutral
 and lives in [`workflow/`](workflow/README.md). This file is only the Claude
 Code entry point.
 
@@ -31,7 +31,7 @@ lifecycle, resolve context, respect local conventions and canonical artifacts,
 and preserve provenance. Assistant material is not knowledge merely because it
 is polished. At session start, load the user profile Summary and project state
 per [`workflow/core/context.md`](workflow/core/context.md).
-For LEARN, apply the experimental interaction strategy in the LEARN profile and
+For LEARN, apply the interaction strategy in the LEARN profile and
 keep workflow metadata internal by default; do not generalize it into a
 cross-domain interaction policy yet.
 

@@ -10,7 +10,7 @@ Read in this order:
 
 Use [execution strategy](execution-strategy.md), [model routing](model-routing.md),
 [context retrieval and policy compression](context.md),
-[information architecture](information.md) and its linked V2.5 experiment,
+[information architecture](information.md) and its linked V2.5 policy,
 [handoff](handoff.md),
 [observability](observability.md), and [feature acceptance](feature-acceptance.md)
 only when those concerns are relevant. Core contains no platform-specific model

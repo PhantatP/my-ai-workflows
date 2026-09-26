@@ -5,7 +5,7 @@ description: Stress-test a user's understanding, claim, design, or plan through 
 
 # GRILL interaction preset
 
-GRILL is an experimental V2.4 interaction preset, not a domain, assurance level,
+GRILL is a V2.4 interaction preset, not a domain, assurance level,
 model tier, reviewer role, or state machine. It does not replace independent
 verification when the selected assurance level requires it.
 
@@ -40,6 +40,6 @@ ELICIT current position → CHALLENGE → inspect response → ADAPT
   add little diagnostic value, the weakness is established, the user asks for
   explanation, or the exchange becomes repetitive.
 
-Keep workflow metadata internal unless the user asks to inspect the experiment.
+Keep workflow metadata internal unless the user asks to inspect the workflow.
 Do not follow a prepared script when the user's answers point elsewhere, and do
 not move the goalposts merely to prolong the grill.

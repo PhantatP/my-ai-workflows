@@ -4,7 +4,7 @@ Markdown is portable, human-readable, vendor-independent persistent storage;
 users may inspect, edit, move, or delete it without AI. Obsidian/sync may be
 used but are not correctness dependencies.
 
-Apply the bounded [Artifact Lifecycle and Provenance experiment](../experiments/v2.5-artifact-lifecycle.md): classify roles (`capture`, `working`, `source`, `reference`, `decision`, `knowledge`) and lifecycles (`ephemeral`, `living`, `snapshot`, `immutable`, `durable`); resolve strongest context; follow local conventions; preserve provenance/relationships; choose write mode. These dimensions neither replace domains nor map to domain folders.
+Apply the [Artifact Lifecycle and Provenance policy](../experiments/v2.5-artifact-lifecycle.md): classify roles (`capture`, `working`, `source`, `reference`, `decision`, `knowledge`) and lifecycles (`ephemeral`, `living`, `snapshot`, `immutable`, `durable`); resolve strongest context; follow local conventions; preserve provenance/relationships; choose write mode. These dimensions neither replace domains nor map to domain folders.
 
 Before persistent writes: inspect local rules; resolve project, area, reusable
 resource, or uncertainty; for durable roles check canonical artifact; choose

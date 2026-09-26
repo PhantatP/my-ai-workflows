@@ -1,4 +1,4 @@
-# Active V2.5 role contracts
+# Active V2.5.2 role contracts
 
 Main owns the task. Create roles only for independent context/judgment,
 specialist capability, or separable value; assurance, models, and agent count

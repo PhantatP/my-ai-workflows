@@ -1,7 +1,7 @@
 # My AI Workflows
 
 Portable adaptive workflow configuration for Codex, Claude Code, Hermes,
-Antigravity, and future execution surfaces. V2.5 adds an experimental cross-domain artifact
+Antigravity, and future execution surfaces. V2.5 adds a cross-domain artifact
 lifecycle and provenance policy while retaining V2.4's LEARN interaction and
 the V2.3 general architecture, separation of assurance from
 model routing, portable Markdown information conventions, and deterministic
@@ -9,6 +9,11 @@ BUILD enforcement.
 
 V2.5.1 adds experimental progressive context retrieval and policy compression;
 see [`workflow/core/context.md`](workflow/core/context.md).
+
+V2.5.2 adds an experimental portable user profile, project state, and
+code-tools-first reading; see
+[`workflow/core/information.md`](workflow/core/information.md). V2.4 and V2.5
+were promoted from experimental on 2026-09-26.
 
 ## Contents
 
@@ -19,9 +24,8 @@ see [`workflow/core/context.md`](workflow/core/context.md).
   with overrides in `.agents/rules/antigravity.md`.
 - `HERMES.md` — thin Hermes adapter emphasizing information trust and honest
   capability degradation.
-- `skills/` — active V2.5 methodologies: adaptive routing, testing,
-  independent falsification review, and experimental PLAN/GRILL interaction
-  presets.
+- `skills/` — active methodologies: adaptive routing, testing, independent
+  falsification review, PLAN/GRILL interaction presets, and profile setup.
 
 See [`workflow/README.md`](workflow/README.md) for adoption and current scope.
 

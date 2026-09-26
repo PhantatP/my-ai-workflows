@@ -3,8 +3,8 @@
 Antigravity also loads this file; its overrides are in
 [`.agents/rules/antigravity.md`](.agents/rules/antigravity.md).
 
-This repository implements My AI Workflows V2.5 experimentally while retaining
-the V2.3 general architecture. The platform-neutral policy lives in
+This repository implements My AI Workflows V2.5.2 while retaining the V2.3
+general architecture. The platform-neutral policy lives in
 [`workflow/`](workflow/README.md); this is the Codex entry point.
 
 ## Required reading order
@@ -44,10 +44,10 @@ artifacts, choose create/update/snapshot behavior, and preserve provenance.
 At session start, load the user profile Summary and project state per
 [`workflow/core/context.md`](workflow/core/context.md).
 
-For LEARN, apply the experimental interaction strategy in the LEARN profile.
+For LEARN, apply the interaction strategy in the LEARN profile.
 Keep simple questions direct, prefer one meaningful cognitive task per learner
 turn when interaction helps, and keep workflow metadata internal unless the
-user requests inspection or debugging. Do not generalize this experiment into
+user requests inspection or debugging. Do not generalize this strategy into
 BUILD or RESEARCH interaction policy yet.
 
 ## Codex-specific execution
