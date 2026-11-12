@@ -30,7 +30,9 @@ extractions with source, locator, and tool as derived representations under
 [information.md](information.md), so later sessions reuse rather than re-read.
 Without a usable text layer, tell the user before OCR; approved OCR tries
 Tesseract before model-based reading. Use model perception when layout,
-figures, or visual meaning matter or tool output is inadequate.
+figures, or visual meaning matter or tool output is inadequate. When many
+images must be inspected, do it in a delegated context that returns text
+findings, so the images do not stay in Main's context for the rest of the task.
 
 Before durable writing, find canonical state then update, link, snapshot, or
 create under [information.md](information.md); discard irrelevant context.

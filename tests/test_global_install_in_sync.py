@@ -9,6 +9,7 @@ The two hooks legitimately differ in module docstring and in ROOT (the global
 lives one directory shallower), so those lines are excluded and the remaining
 logic is compared.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -38,7 +39,9 @@ def _normalised(path: Path) -> str:
 def _hook_logic(path: Path) -> str:
     """Hook text without its docstring or its ROOT line."""
     lines = _normalised(path).splitlines()
-    start = next((i for i, line in enumerate(lines) if line.startswith("from __future__")), 0)
+    start = next(
+        (i for i, line in enumerate(lines) if line.startswith("from __future__")), 0
+    )
     return "\n".join(line for line in lines[start:] if not line.startswith("ROOT = "))
 
 
@@ -57,7 +60,42 @@ def test_shared_enforcement_file_matches_global_install(relative: str) -> None:
 def test_hook_logic_matches_global_install() -> None:
     mirrored = GLOBAL_ROOT / "hooks" / "pre_tool_use.py"
     assert mirrored.exists(), "global pre_tool_use.py is missing"
-    assert _hook_logic(ROOT / ".claude" / "hooks" / "pre_tool_use.py") == _hook_logic(mirrored), (
+    assert _hook_logic(ROOT / ".claude" / "hooks" / "pre_tool_use.py") == _hook_logic(
+        mirrored
+    ), (
         "Hook logic differs between this repo and the global install. "
         "Editing one and not the other leaves the global guard on stale rules."
+    )
+
+
+def _tree(root: Path) -> set[str]:
+    return {
+        p.relative_to(root).as_posix()
+        for p in root.rglob("*")
+        if p.is_file() and "__pycache__" not in p.parts
+    }
+
+
+@needs_global_install
+def test_workflow_tree_matches_global_install() -> None:
+    repo, installed = _tree(ROOT / "workflow"), _tree(GLOBAL_ROOT / "workflow")
+    differ = sorted(
+        rel
+        for rel in repo & installed
+        if _normalised(ROOT / "workflow" / rel)
+        != _normalised(GLOBAL_ROOT / "workflow" / rel)
+    )
+    assert (repo - installed, installed - repo, differ) == (set(), set(), []), (
+        f"missing: {sorted(repo - installed)}; stale: {sorted(installed - repo)}; "
+        f"differ: {differ}. Run scripts/install-global.py --apply."
+    )
+
+
+@needs_global_install
+@pytest.mark.parametrize("name", ["explorer.md", "implementer.md", "reviewer.md"])
+def test_agent_definition_matches_global_install(name: str) -> None:
+    mirrored = GLOBAL_ROOT / "agents" / name
+    assert mirrored.exists(), f"{name} is missing from the global install"
+    assert _normalised(ROOT / ".claude" / "agents" / name) == _normalised(mirrored), (
+        f"{name} differs from {mirrored}. Run scripts/install-global.py --apply."
     )

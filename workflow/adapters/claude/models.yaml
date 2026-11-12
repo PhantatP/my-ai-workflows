@@ -1,0 +1,14 @@
+# Claude Code mapping for the classes in core/model-routing.md.
+# Agent frontmatter sets each role's default class; Main passes `model` and
+# `effort` on a delegation to choose another class within the role's range
+# (agents/roles.md). Main's own model is the user's choice (/model).
+models:
+  STRONG:
+    model: opus
+    effort: high
+  BALANCED:
+    model: sonnet
+    effort: medium
+  ECONOMY:
+    model: haiku
+    effort: low

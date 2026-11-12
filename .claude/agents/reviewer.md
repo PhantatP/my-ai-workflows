@@ -1,7 +1,7 @@
 ---
 name: reviewer
 description: Read-only independent V2.3 reviewer. Falsifies artifact or conclusion correctness from intent and primary evidence; never edits.
-model: sonnet
+model: opus
 tools: Read, Glob, Grep
 disallowedTools: Write, Edit, Bash
 ---

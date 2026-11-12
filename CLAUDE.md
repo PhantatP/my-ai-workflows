@@ -38,11 +38,14 @@ cross-domain interaction policy yet.
 ## Claude-specific execution
 
 - For Level 3+ BUILD use the independent read-only reviewer. In other domains,
-  use a subagent only when genuine independence requires it; L4 parallel work
-  must be genuinely separable.
-- The active Claude Code definitions are in `.claude/agents/`; their model and
-  allowed-tool frontmatter enforce the Explorer, Implementer, and Reviewer
-  boundaries.
+  use a subagent only when genuine independence or context isolation requires
+  it; L4 parallel work must be genuinely separable.
+- The active Claude Code definitions are in `.claude/agents/`; their
+  frontmatter sets each role's default model and enforces its allowed tools.
+  Before delegating, choose the model class and effort per
+  [`workflow/adapters/claude/README.md`](workflow/adapters/claude/README.md)
+  and [`workflow/adapters/claude/models.yaml`](workflow/adapters/claude/models.yaml); this explicitly
+  authorizes passing `effort`. Follow that README's one-task-per-session rule.
 - Pass an independent reviewer the task intent, changed-file list/diff, relevant
   evidence, and the instruction to falsify correctness. The reviewer must not
   edit the implementation.
