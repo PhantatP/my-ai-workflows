@@ -92,7 +92,9 @@ def test_workflow_tree_matches_global_install() -> None:
 
 
 @needs_global_install
-@pytest.mark.parametrize("name", ["explorer.md", "implementer.md", "reviewer.md"])
+@pytest.mark.parametrize(
+    "name", ["explorer.md", "implementer.md", "reviewer.md", "researcher.md"]
+)
 def test_agent_definition_matches_global_install(name: str) -> None:
     mirrored = GLOBAL_ROOT / "agents" / name
     assert mirrored.exists(), f"{name} is missing from the global install"

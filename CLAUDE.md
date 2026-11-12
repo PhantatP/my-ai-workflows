@@ -38,8 +38,9 @@ cross-domain interaction policy yet.
 ## Claude-specific execution
 
 - For Level 3+ BUILD use the independent read-only reviewer. In other domains,
-  use a subagent only when genuine independence or context isolation requires
-  it; L4 parallel work must be genuinely separable.
+  use a subagent only when genuine independence, context isolation, or a
+  separable research batch ([`workflow/agents/roles.md`](workflow/agents/roles.md))
+  requires it; L4 parallel work must be genuinely separable.
 - The active Claude Code definitions are in `.claude/agents/`; their
   frontmatter sets each role's default model and enforces its allowed tools.
   Before delegating, choose the model class and effort per

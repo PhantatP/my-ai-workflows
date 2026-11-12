@@ -59,8 +59,9 @@ BUILD or RESEARCH interaction policy yet.
   automatically require an agent when another independent mechanism suffices.
 - Follow [`.codex/README.md`](.codex/README.md) for Codex's session-level model
   and permission controls; role-level restrictions are delegation contracts.
-- Use parallel workers only at Level 4 and only for independent, separable
-  questions.
+- Use parallel workers only at Level 4, except research batches under
+  [`workflow/agents/roles.md`](workflow/agents/roles.md), and only for
+  independent, separable questions.
 - Use `workflow/bin/scan-triggers --platform codex` for intended BUILD paths
   and `workflow/bin/scan-change-set --platform codex` for the actual change
   set. Use `workflow/bin/enforce-operation --platform codex` before external

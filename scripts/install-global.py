@@ -26,7 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = Path.home() / ".claude"
 SKIP = "__pycache__"  # tests/test_global_install_in_sync.py excludes the same
-AGENTS = ("explorer.md", "implementer.md", "reviewer.md")
+AGENTS = ("explorer.md", "implementer.md", "reviewer.md", "researcher.md")
 STAGED = ".install-tmp"
 REPO_ROOT_LINE = "ROOT = Path(__file__).resolve().parents[2]"
 GLOBAL_ROOT_LINE = "ROOT = Path(__file__).resolve().parents[1]"
